@@ -1,0 +1,14 @@
+package: browseruse
+generate:
+  client: true
+  models: true
+output: client.gen.go
+output-options:
+  resolve-type-name-collisions: true
+  # Unformatted numbers otherwise become float32 in oapi-codegen.
+  type-mapping:
+    number:
+      default:
+        type: float64
+compatibility:
+  always-prefix-enum-values: true
