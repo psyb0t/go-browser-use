@@ -2,6 +2,12 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.1.2, 2026-10-17
+
+- Documentation only. The agent skill explains how to look up every endpoint, parameter and model with `go doc` or on pkg.go.dev, and declares its license.
+- The skill no longer lists the API credentials under OpenClaw's `requires.env`, which kept OpenClaw from loading it until they were set. It requires only `go`; the credentials are still documented as what your program reads.
+- The README points to the full API reference, and the examples in the README and the skill were checked against the current code.
+
 ## v0.1.1, 2026-10-17
 
 - Generated doc comments keep the API's own description text. The spec patch no longer rewrites dashes or wording in descriptions.

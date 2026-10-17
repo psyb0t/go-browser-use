@@ -71,6 +71,8 @@ The same code is in `example_test.go`, so `make test` checks that it compiles.
 
 Method names retain the spec's operation IDs, including resource and HTTP method suffixes. `CreateRunRunsPostWithResponse` starts a run. The client covers runs, events, sessions, queues, sharing, workspaces, files, wallets, integrations, extensions, browsers, and profiles.
 
+The full API is in the [Go reference](https://pkg.go.dev/github.com/psyb0t/go-browser-use); after `go get`, `go doc github.com/psyb0t/go-browser-use` prints it locally.
+
 ## Auth
 
 Browser Use uses the `APIKeyHeader` security scheme: set `X-Browser-Use-API-Key` through `WithRequestEditorFn`, as in the example. Read the key from `BROWSER_USE_API_KEY`; never hardcode or log it. The production base URL is `https://api.browser-use.com/api/v4`, including the version prefix.

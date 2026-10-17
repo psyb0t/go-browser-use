@@ -45,8 +45,6 @@ make sec       # gitleaks, govulncheck, semgrep
 - `InlineSecretSource.Value` is a pointer because the spec marks it write-only. Set it explicitly when constructing an inline binding.
 - Event retrieval returns JSON, not a WebSocket connection. File upload endpoints return presigned URLs; uploading bytes is a separate request without the Browser Use API key.
 - `make generate` fetches the current spec. Review the generated output after every regeneration.
-- Security scanning handles source directories without Git history. No Git initialization is needed.
-- Do not initialize Git, mutate Git or GitHub, publish, or call the provider API during this task.
 - `.github/workflows/regen.yml` regenerates the client every day and releases the result. When the checks fail, Claude edits the repository to fix them, but a fix may not touch the paths listed under `fix_protected_paths` in that workflow: the workflows, the Makefile, `AGENTS.md`, `.agents/rules/`, the lint, security and spec download scripts and their configs. A problem that needs a change there fails the run and needs a manual fix.
 
 ## Rules
