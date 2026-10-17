@@ -88,7 +88,7 @@ make generate
 `gen.go` declares the steps, so `make generate` is just `go generate ./...`:
 
 - `scripts/fetch-spec.sh` downloads `https://docs.browser-use.com/cloud/openapi/v4.json` to `api/openapi.json`.
-- `scripts/patch-spec.sh` writes `api/openapi.fixed.json` in OpenAPI 3.0.3 form. It converts null union branches to `nullable`, `const` to singleton enums, and numeric exclusive bounds to a bound plus an exclusive flag. Other union alternatives and all operations remain intact. It also normalizes description punctuation and provider first-person prose in generated comments.
+- `scripts/patch-spec.sh` writes `api/openapi.fixed.json` in OpenAPI 3.0.3 form. It converts null union branches to `nullable`, `const` to singleton enums, and numeric exclusive bounds to a bound plus an exclusive flag. Other union alternatives and all operations remain intact.
 - oapi-codegen runs with `config.yaml`, mapping unformatted `number` fields to `float64`. Decimal cost strings remain strings.
 
 Optional nil pointer fields are omitted. To send an explicit null, such as clearing a session title, use the operation's `WithBodyWithResponse` method with a JSON reader. Upload endpoints return presigned URLs; send file bytes separately without the Browser Use API key. Event retrieval returns JSON pages, not a WebSocket stream.

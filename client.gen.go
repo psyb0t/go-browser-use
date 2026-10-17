@@ -1514,7 +1514,7 @@ type IntegrationResponse struct {
 // OnePasswordSecretSource One field of a 1Password item, resolved only when the agent asks for it.
 //
 // Nothing here is a secret: the quadruple NAMES a credential without carrying
-// it. Creating the binding makes no call to 1Password, a provider outage must
+// it. Creating the binding makes no call to 1Password — a provider outage must
 // not stop a run from being dispatched, and no vault is ever enumerated.
 //
 // A one-time-password field resolves to its current code; its seed is never
@@ -1573,7 +1573,7 @@ type ProfileUpdateRequest struct {
 
 // ProfileView View model for representing a profile. A profile lets you preserve the login state between sessions.
 //
-// Create a separate profile for each user of your app.
+// We recommend that you create a separate profile for each user of your app.
 // You can assign a user_id to each profile to easily identify which user the profile belongs to.
 type ProfileView struct {
 	// CookieDomains List of domain URLs that have cookies stored for this profile
@@ -1612,7 +1612,7 @@ type QueueListResponse struct {
 //
 // Set `interrupt` to make it take effect now: the session's active run is
 // cancelled and this message drains straight after. Interrupt is a no-op when
-// the session is already idle, and BEST-EFFORT when busy, if the cancel can't
+// the session is already idle, and BEST-EFFORT when busy — if the cancel can't
 // be delivered, the message stays queued and runs after the current turn.
 type QueueMessageRequest struct {
 	AttachedFileIds *[]openapi_types.UUID `json:"attachedFileIds,omitempty"`
@@ -1806,7 +1806,7 @@ type RunListResponse struct {
 }
 
 // RunStatusResponse Minimal poll target: just the run's status. Poll this until terminal
-// (cheap indexed lookup, tiny payload, never the task/result text), then
+// (cheap indexed lookup, tiny payload — never the task/result text), then
 // fetch the full RunSummary once via GET /runs/{id}. Mirrors v2's
 // GET /tasks/{id}/status.
 type RunStatusResponse struct {
@@ -1847,7 +1847,7 @@ type RunSummaryStatus string
 //
 // The value never reaches the agent. It is encrypted at rest, kept out of the
 // worker payload, and typed straight into the focused field by the server when
-// the agent asks for the alias by name, and only while the page it is typing
+// the agent asks for the alias by name — and only while the page it is typing
 // into is on one of `allowedDomains`.
 //
 // Run-scoped: bindings die with the run, so a follow-up run that needs the same
@@ -1856,7 +1856,7 @@ type SecretBinding struct {
 	// Alias Name the agent refers to this secret by, e.g. "github_password".
 	Alias string `json:"alias"`
 
-	// AllowedDomains Hosts the secret may be typed into, e.g. ["github.com"]. A host covers its subdomains. Bare hostnames only, no scheme, port, path, or wildcard.
+	// AllowedDomains Hosts the secret may be typed into, e.g. ["github.com"]. A host covers its subdomains. Bare hostnames only — no scheme, port, path, or wildcard.
 	AllowedDomains []string             `json:"allowedDomains"`
 	Source         SecretBinding_Source `json:"source"`
 }
@@ -1890,11 +1890,11 @@ type SessionCostCapResponse struct {
 
 // SessionCostResponse Everything a session cost, split by what it was spent on.
 //
-// Recorded usage, not an invoice total, promotional waivers and credits are
+// Recorded usage, not an invoice total — promotional waivers and credits are
 // applied downstream in billing.
 //
 // Browser time and proxy bandwidth are metered against the session's browser,
-// which outlives any single run, so they have no per-run number, only
+// which outlives any single run, so they have no per-run number — only
 // `RunSummary.total_cost_usd`, the LLM (and web search) charge, does.
 //
 // All amounts are fixed-6-decimal strings for the same reason as
@@ -1912,7 +1912,7 @@ type SessionCostResponse struct {
 
 // SessionInfo Lightweight metadata for one V4 session (its most recent run).
 //
-// Deliberately slim, just what a session list needs (open the conversation,
+// Deliberately slim — just what a session list needs (open the conversation,
 // show a label + status + time). The heavy per-run fields (result, error,
 // token/cost totals) live on RunSummary and aren't repeated here.
 type SessionInfo struct {
@@ -2690,7 +2690,7 @@ type ClientInterface interface {
 	// The project's active AgentCard wallets, newest first.
 	//
 	// Read-only: funding is admin-only during the beta. The UI uses this to offer
-	// a wallet on the composer, which is how a run opts into spending, the id
+	// a wallet on the composer, which is how a run opts into spending — the id
 	// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
 	// against this same project.
 	//
@@ -2833,7 +2833,7 @@ type ClientInterface interface {
 	//
 	// `is_connected` is resolved per integration, so a client can render the whole
 	// catalogue and the connected subset from this one call. `connected_only` is
-	// what a "my integrations" view reads, including on a restricted project,
+	// what a "my integrations" view reads — including on a restricted project,
 	// which cannot connect anything but can still remove what it already has.
 	//
 	// Corresponds with GET /integrations (the `ListIntegrationsIntegrationsGet` operationId).
@@ -2989,7 +2989,7 @@ type ClientInterface interface {
 	//
 	// Idempotent: a run already in a terminal state (completed / failed /
 	// cancelled) is returned as-is. Once cancelled, the gateway refuses
-	// every subsequent `chat_completions` call from the worker, so the
+	// every subsequent `chat_completions` call from the worker — so the
 	// project cannot be billed further regardless of whether the worker
 	// subprocess notices the cancel itself.
 	//
@@ -3002,7 +3002,7 @@ type ClientInterface interface {
 
 	// GetRunEventsRunsRunIdEventsGet Get Run Events
 	//
-	// Paginated event read. `after` is the event id cursor, clients
+	// Paginated event read. `after` is the event id cursor — clients
 	// doing periodic polls pass back the highest id they've seen to get only
 	// the delta. Default 0 returns from the start.
 	//
@@ -3012,7 +3012,7 @@ type ClientInterface interface {
 	// GetRunStatusRunsRunIdStatusGet Get Run Status
 	//
 	// Minimal status poll (see RunStatusResponse). POLL rate bucket: selects
-	// ONLY the status/project columns, a 2s poll never drags the task/result
+	// ONLY the status/project columns — a 2s poll never drags the task/result
 	// text (TOAST reads) that GET /runs/{id} pays. Poll until terminal, then
 	// fetch the full summary once.
 	//
@@ -3021,18 +3021,18 @@ type ClientInterface interface {
 
 	// ListSessionsSessionsGet List Sessions
 	//
-	// List the project's V4 sessions, one row per session (its most recent
+	// List the project's V4 sessions — one row per session (its most recent
 	// run), most-recent first.
 	//
 	// A session is a conversation: follow-up runs reuse the same
 	// public_session_id, so GET /api/v4/runs would list one row per RUN. This
 	// collapses to one row per SESSION directly in Postgres with DISTINCT ON, so a
 	// chatty session with 100 runs is still a single row (no scan amplification),
-	// and selects only the slim columns the session list needs, never the heavy
+	// and selects only the slim columns the session list needs — never the heavy
 	// per-run text/token/cost fields.
 	//
 	// Keyset-paginated on the latest run's (created_at, id): pass `next_cursor`
-	// back as `cursor` to page. Offset/COUNT was dropped, it doesn't scale on
+	// back as `cursor` to page. Offset/COUNT was dropped — it doesn't scale on
 	// projects with many sessions.
 	//
 	// Corresponds with GET /sessions (the `ListSessionsSessionsGet` operationId).
@@ -3045,7 +3045,7 @@ type ClientInterface interface {
 	//
 	// Soft delete (mirrors V2's `is_archived`): the runs, events and usage records
 	// stay in place so billing and analytics keep reconciling, and ZDR purge is the
-	// only thing that ever destroys V4 content. Idempotent, deleting twice is a
+	// only thing that ever destroys V4 content. Idempotent — deleting twice is a
 	// no-op 204.
 	//
 	// An in-flight run is cancelled first, and pending queued messages are
@@ -3060,7 +3060,7 @@ type ClientInterface interface {
 
 	// GetSessionSessionsSessionIdGet Get Session
 	//
-	// Session detail, the same slim shape as one GET /sessions row (its
+	// Session detail — the same slim shape as one GET /sessions row (its
 	// latest run). Doubles as the busy/idle poll for a conversation (POLL rate
 	// bucket): slim columns only, indexed public_session_id lookup, never the
 	// heavy result/token fields.
@@ -3074,7 +3074,7 @@ type ClientInterface interface {
 	//
 	// `session_title` is denormalized onto every run in the session (the session
 	// list reads the latest run), so a rename writes them all in one UPDATE. Null
-	// clears the name and the UI falls back to the opening task, it does NOT
+	// clears the name and the UI falls back to the opening task — it does NOT
 	// re-run title generation, which only fills rows where the title IS NULL and
 	// so would silently overwrite the clear.
 	//
@@ -3089,7 +3089,7 @@ type ClientInterface interface {
 	//
 	// `session_title` is denormalized onto every run in the session (the session
 	// list reads the latest run), so a rename writes them all in one UPDATE. Null
-	// clears the name and the UI falls back to the opening task, it does NOT
+	// clears the name and the UI falls back to the opening task — it does NOT
 	// re-run title generation, which only fills rows where the title IS NULL and
 	// so would silently overwrite the clear.
 	//
@@ -3104,7 +3104,7 @@ type ClientInterface interface {
 	//
 	// A run's `total_cost_usd` is its LLM (and web-search) charge only. Browser
 	// time and proxy bandwidth are metered against the session's browser, which
-	// outlives any one run, so this is the endpoint for the session's full cost.
+	// outlives any one run — so this is the endpoint for the session's full cost.
 	//
 	// These are recorded usage costs, not an invoice total: promotional waivers
 	// and credits are applied downstream in billing, so a session run under a
@@ -3356,7 +3356,7 @@ type ClientInterface interface {
 // The project's active AgentCard wallets, newest first.
 //
 // Read-only: funding is admin-only during the beta. The UI uses this to offer
-// a wallet on the composer, which is how a run opts into spending, the id
+// a wallet on the composer, which is how a run opts into spending — the id
 // then rides RunCreateRequest.agentcard_wallet_id and is validated again there
 // against this same project.
 //
@@ -3619,7 +3619,7 @@ func (c *Client) GetExtensionExtensionsExtensionIdGet(ctx context.Context, exten
 //
 // `is_connected` is resolved per integration, so a client can render the whole
 // catalogue and the connected subset from this one call. `connected_only` is
-// what a "my integrations" view reads, including on a restricted project,
+// what a "my integrations" view reads — including on a restricted project,
 // which cannot connect anything but can still remove what it already has.
 //
 // Corresponds with GET /integrations (the `ListIntegrationsIntegrationsGet` operationId).
@@ -3945,7 +3945,7 @@ func (c *Client) ListRunAttachmentsRunsRunIdAttachmentsGet(ctx context.Context, 
 //
 // Idempotent: a run already in a terminal state (completed / failed /
 // cancelled) is returned as-is. Once cancelled, the gateway refuses
-// every subsequent `chat_completions` call from the worker, so the
+// every subsequent `chat_completions` call from the worker — so the
 // project cannot be billed further regardless of whether the worker
 // subprocess notices the cancel itself.
 //
@@ -3968,7 +3968,7 @@ func (c *Client) CancelRunRunsRunIdCancelPost(ctx context.Context, runId openapi
 
 // GetRunEventsRunsRunIdEventsGet Get Run Events
 //
-// Paginated event read. `after` is the event id cursor, clients
+// Paginated event read. `after` is the event id cursor — clients
 // doing periodic polls pass back the highest id they've seen to get only
 // the delta. Default 0 returns from the start.
 //
@@ -3988,7 +3988,7 @@ func (c *Client) GetRunEventsRunsRunIdEventsGet(ctx context.Context, runId opena
 // GetRunStatusRunsRunIdStatusGet Get Run Status
 //
 // Minimal status poll (see RunStatusResponse). POLL rate bucket: selects
-// ONLY the status/project columns, a 2s poll never drags the task/result
+// ONLY the status/project columns — a 2s poll never drags the task/result
 // text (TOAST reads) that GET /runs/{id} pays. Poll until terminal, then
 // fetch the full summary once.
 //
@@ -4007,18 +4007,18 @@ func (c *Client) GetRunStatusRunsRunIdStatusGet(ctx context.Context, runId opena
 
 // ListSessionsSessionsGet List Sessions
 //
-// List the project's V4 sessions, one row per session (its most recent
+// List the project's V4 sessions — one row per session (its most recent
 // run), most-recent first.
 //
 // A session is a conversation: follow-up runs reuse the same
 // public_session_id, so GET /api/v4/runs would list one row per RUN. This
 // collapses to one row per SESSION directly in Postgres with DISTINCT ON, so a
 // chatty session with 100 runs is still a single row (no scan amplification),
-// and selects only the slim columns the session list needs, never the heavy
+// and selects only the slim columns the session list needs — never the heavy
 // per-run text/token/cost fields.
 //
 // Keyset-paginated on the latest run's (created_at, id): pass `next_cursor`
-// back as `cursor` to page. Offset/COUNT was dropped, it doesn't scale on
+// back as `cursor` to page. Offset/COUNT was dropped — it doesn't scale on
 // projects with many sessions.
 //
 // Corresponds with GET /sessions (the `ListSessionsSessionsGet` operationId).
@@ -4041,7 +4041,7 @@ func (c *Client) ListSessionsSessionsGet(ctx context.Context, params *ListSessio
 //
 // Soft delete (mirrors V2's `is_archived`): the runs, events and usage records
 // stay in place so billing and analytics keep reconciling, and ZDR purge is the
-// only thing that ever destroys V4 content. Idempotent, deleting twice is a
+// only thing that ever destroys V4 content. Idempotent — deleting twice is a
 // no-op 204.
 //
 // An in-flight run is cancelled first, and pending queued messages are
@@ -4066,7 +4066,7 @@ func (c *Client) DeleteSessionSessionsSessionIdDelete(ctx context.Context, sessi
 
 // GetSessionSessionsSessionIdGet Get Session
 //
-// Session detail, the same slim shape as one GET /sessions row (its
+// Session detail — the same slim shape as one GET /sessions row (its
 // latest run). Doubles as the busy/idle poll for a conversation (POLL rate
 // bucket): slim columns only, indexed public_session_id lookup, never the
 // heavy result/token fields.
@@ -4090,7 +4090,7 @@ func (c *Client) GetSessionSessionsSessionIdGet(ctx context.Context, sessionId o
 //
 // `session_title` is denormalized onto every run in the session (the session
 // list reads the latest run), so a rename writes them all in one UPDATE. Null
-// clears the name and the UI falls back to the opening task, it does NOT
+// clears the name and the UI falls back to the opening task — it does NOT
 // re-run title generation, which only fills rows where the title IS NULL and
 // so would silently overwrite the clear.
 //
@@ -4115,7 +4115,7 @@ func (c *Client) UpdateSessionSessionsSessionIdPatchWithBody(ctx context.Context
 //
 // `session_title` is denormalized onto every run in the session (the session
 // list reads the latest run), so a rename writes them all in one UPDATE. Null
-// clears the name and the UI falls back to the opening task, it does NOT
+// clears the name and the UI falls back to the opening task — it does NOT
 // re-run title generation, which only fills rows where the title IS NULL and
 // so would silently overwrite the clear.
 //
@@ -4140,7 +4140,7 @@ func (c *Client) UpdateSessionSessionsSessionIdPatch(ctx context.Context, sessio
 //
 // A run's `total_cost_usd` is its LLM (and web-search) charge only. Browser
 // time and proxy bandwidth are metered against the session's browser, which
-// outlives any one run, so this is the endpoint for the session's full cost.
+// outlives any one run — so this is the endpoint for the session's full cost.
 //
 // These are recorded usage costs, not an invoice total: promotional waivers
 // and credits are applied downstream in billing, so a session run under a
@@ -7004,7 +7004,7 @@ type ClientWithResponsesInterface interface {
 	// The project's active AgentCard wallets, newest first.
 	//
 	// Read-only: funding is admin-only during the beta. The UI uses this to offer
-	// a wallet on the composer, which is how a run opts into spending, the id
+	// a wallet on the composer, which is how a run opts into spending — the id
 	// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
 	// against this same project.
 	//
@@ -7161,7 +7161,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// `is_connected` is resolved per integration, so a client can render the whole
 	// catalogue and the connected subset from this one call. `connected_only` is
-	// what a "my integrations" view reads, including on a restricted project,
+	// what a "my integrations" view reads — including on a restricted project,
 	// which cannot connect anything but can still remove what it already has.
 	//
 	// Returns a wrapper object for the known response body format(s).
@@ -7339,7 +7339,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Idempotent: a run already in a terminal state (completed / failed /
 	// cancelled) is returned as-is. Once cancelled, the gateway refuses
-	// every subsequent `chat_completions` call from the worker, so the
+	// every subsequent `chat_completions` call from the worker — so the
 	// project cannot be billed further regardless of whether the worker
 	// subprocess notices the cancel itself.
 	//
@@ -7354,7 +7354,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetRunEventsRunsRunIdEventsGetWithResponse Get Run Events
 	//
-	// Paginated event read. `after` is the event id cursor, clients
+	// Paginated event read. `after` is the event id cursor — clients
 	// doing periodic polls pass back the highest id they've seen to get only
 	// the delta. Default 0 returns from the start.
 	//
@@ -7366,7 +7366,7 @@ type ClientWithResponsesInterface interface {
 	// GetRunStatusRunsRunIdStatusGetWithResponse Get Run Status
 	//
 	// Minimal status poll (see RunStatusResponse). POLL rate bucket: selects
-	// ONLY the status/project columns, a 2s poll never drags the task/result
+	// ONLY the status/project columns — a 2s poll never drags the task/result
 	// text (TOAST reads) that GET /runs/{id} pays. Poll until terminal, then
 	// fetch the full summary once.
 	//
@@ -7377,18 +7377,18 @@ type ClientWithResponsesInterface interface {
 
 	// ListSessionsSessionsGetWithResponse List Sessions
 	//
-	// List the project's V4 sessions, one row per session (its most recent
+	// List the project's V4 sessions — one row per session (its most recent
 	// run), most-recent first.
 	//
 	// A session is a conversation: follow-up runs reuse the same
 	// public_session_id, so GET /api/v4/runs would list one row per RUN. This
 	// collapses to one row per SESSION directly in Postgres with DISTINCT ON, so a
 	// chatty session with 100 runs is still a single row (no scan amplification),
-	// and selects only the slim columns the session list needs, never the heavy
+	// and selects only the slim columns the session list needs — never the heavy
 	// per-run text/token/cost fields.
 	//
 	// Keyset-paginated on the latest run's (created_at, id): pass `next_cursor`
-	// back as `cursor` to page. Offset/COUNT was dropped, it doesn't scale on
+	// back as `cursor` to page. Offset/COUNT was dropped — it doesn't scale on
 	// projects with many sessions.
 	//
 	// Returns a wrapper object for the known response body format(s).
@@ -7403,7 +7403,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Soft delete (mirrors V2's `is_archived`): the runs, events and usage records
 	// stay in place so billing and analytics keep reconciling, and ZDR purge is the
-	// only thing that ever destroys V4 content. Idempotent, deleting twice is a
+	// only thing that ever destroys V4 content. Idempotent — deleting twice is a
 	// no-op 204.
 	//
 	// An in-flight run is cancelled first, and pending queued messages are
@@ -7420,7 +7420,7 @@ type ClientWithResponsesInterface interface {
 
 	// GetSessionSessionsSessionIdGetWithResponse Get Session
 	//
-	// Session detail, the same slim shape as one GET /sessions row (its
+	// Session detail — the same slim shape as one GET /sessions row (its
 	// latest run). Doubles as the busy/idle poll for a conversation (POLL rate
 	// bucket): slim columns only, indexed public_session_id lookup, never the
 	// heavy result/token fields.
@@ -7436,7 +7436,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// `session_title` is denormalized onto every run in the session (the session
 	// list reads the latest run), so a rename writes them all in one UPDATE. Null
-	// clears the name and the UI falls back to the opening task, it does NOT
+	// clears the name and the UI falls back to the opening task — it does NOT
 	// re-run title generation, which only fills rows where the title IS NULL and
 	// so would silently overwrite the clear.
 	//
@@ -7451,7 +7451,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// `session_title` is denormalized onto every run in the session (the session
 	// list reads the latest run), so a rename writes them all in one UPDATE. Null
-	// clears the name and the UI falls back to the opening task, it does NOT
+	// clears the name and the UI falls back to the opening task — it does NOT
 	// re-run title generation, which only fills rows where the title IS NULL and
 	// so would silently overwrite the clear.
 	//
@@ -7466,7 +7466,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// A run's `total_cost_usd` is its LLM (and web-search) charge only. Browser
 	// time and proxy bandwidth are metered against the session's browser, which
-	// outlives any one run, so this is the endpoint for the session's full cost.
+	// outlives any one run — so this is the endpoint for the session's full cost.
 	//
 	// These are recorded usage costs, not an invoice total: promotional waivers
 	// and credits are applied downstream in billing, so a session run under a
@@ -10179,7 +10179,7 @@ func (r GetWorkspaceSizeWorkspacesWorkspaceIdSizeGetResponse) ContentType() stri
 // The project's active AgentCard wallets, newest first.
 //
 // Read-only: funding is admin-only during the beta. The UI uses this to offer
-// a wallet on the composer, which is how a run opts into spending, the id
+// a wallet on the composer, which is how a run opts into spending — the id
 // then rides RunCreateRequest.agentcard_wallet_id and is validated again there
 // against this same project.
 //
@@ -10408,7 +10408,7 @@ func (c *ClientWithResponses) GetExtensionExtensionsExtensionIdGetWithResponse(c
 //
 // `is_connected` is resolved per integration, so a client can render the whole
 // catalogue and the connected subset from this one call. `connected_only` is
-// what a "my integrations" view reads, including on a restricted project,
+// what a "my integrations" view reads — including on a restricted project,
 // which cannot connect anything but can still remove what it already has.
 //
 // Returns a wrapper object for the known response body format(s).
@@ -10688,7 +10688,7 @@ func (c *ClientWithResponses) ListRunAttachmentsRunsRunIdAttachmentsGetWithRespo
 //
 // Idempotent: a run already in a terminal state (completed / failed /
 // cancelled) is returned as-is. Once cancelled, the gateway refuses
-// every subsequent `chat_completions` call from the worker, so the
+// every subsequent `chat_completions` call from the worker — so the
 // project cannot be billed further regardless of whether the worker
 // subprocess notices the cancel itself.
 //
@@ -10709,7 +10709,7 @@ func (c *ClientWithResponses) CancelRunRunsRunIdCancelPostWithResponse(ctx conte
 
 // GetRunEventsRunsRunIdEventsGetWithResponse Get Run Events
 //
-// Paginated event read. `after` is the event id cursor, clients
+// Paginated event read. `after` is the event id cursor — clients
 // doing periodic polls pass back the highest id they've seen to get only
 // the delta. Default 0 returns from the start.
 //
@@ -10727,7 +10727,7 @@ func (c *ClientWithResponses) GetRunEventsRunsRunIdEventsGetWithResponse(ctx con
 // GetRunStatusRunsRunIdStatusGetWithResponse Get Run Status
 //
 // Minimal status poll (see RunStatusResponse). POLL rate bucket: selects
-// ONLY the status/project columns, a 2s poll never drags the task/result
+// ONLY the status/project columns — a 2s poll never drags the task/result
 // text (TOAST reads) that GET /runs/{id} pays. Poll until terminal, then
 // fetch the full summary once.
 //
@@ -10744,18 +10744,18 @@ func (c *ClientWithResponses) GetRunStatusRunsRunIdStatusGetWithResponse(ctx con
 
 // ListSessionsSessionsGetWithResponse List Sessions
 //
-// List the project's V4 sessions, one row per session (its most recent
+// List the project's V4 sessions — one row per session (its most recent
 // run), most-recent first.
 //
 // A session is a conversation: follow-up runs reuse the same
 // public_session_id, so GET /api/v4/runs would list one row per RUN. This
 // collapses to one row per SESSION directly in Postgres with DISTINCT ON, so a
 // chatty session with 100 runs is still a single row (no scan amplification),
-// and selects only the slim columns the session list needs, never the heavy
+// and selects only the slim columns the session list needs — never the heavy
 // per-run text/token/cost fields.
 //
 // Keyset-paginated on the latest run's (created_at, id): pass `next_cursor`
-// back as `cursor` to page. Offset/COUNT was dropped, it doesn't scale on
+// back as `cursor` to page. Offset/COUNT was dropped — it doesn't scale on
 // projects with many sessions.
 //
 // Returns a wrapper object for the known response body format(s).
@@ -10776,7 +10776,7 @@ func (c *ClientWithResponses) ListSessionsSessionsGetWithResponse(ctx context.Co
 //
 // Soft delete (mirrors V2's `is_archived`): the runs, events and usage records
 // stay in place so billing and analytics keep reconciling, and ZDR purge is the
-// only thing that ever destroys V4 content. Idempotent, deleting twice is a
+// only thing that ever destroys V4 content. Idempotent — deleting twice is a
 // no-op 204.
 //
 // An in-flight run is cancelled first, and pending queued messages are
@@ -10799,7 +10799,7 @@ func (c *ClientWithResponses) DeleteSessionSessionsSessionIdDeleteWithResponse(c
 
 // GetSessionSessionsSessionIdGetWithResponse Get Session
 //
-// Session detail, the same slim shape as one GET /sessions row (its
+// Session detail — the same slim shape as one GET /sessions row (its
 // latest run). Doubles as the busy/idle poll for a conversation (POLL rate
 // bucket): slim columns only, indexed public_session_id lookup, never the
 // heavy result/token fields.
@@ -10821,7 +10821,7 @@ func (c *ClientWithResponses) GetSessionSessionsSessionIdGetWithResponse(ctx con
 //
 // `session_title` is denormalized onto every run in the session (the session
 // list reads the latest run), so a rename writes them all in one UPDATE. Null
-// clears the name and the UI falls back to the opening task, it does NOT
+// clears the name and the UI falls back to the opening task — it does NOT
 // re-run title generation, which only fills rows where the title IS NULL and
 // so would silently overwrite the clear.
 //
@@ -10842,7 +10842,7 @@ func (c *ClientWithResponses) UpdateSessionSessionsSessionIdPatchWithBodyWithRes
 //
 // `session_title` is denormalized onto every run in the session (the session
 // list reads the latest run), so a rename writes them all in one UPDATE. Null
-// clears the name and the UI falls back to the opening task, it does NOT
+// clears the name and the UI falls back to the opening task — it does NOT
 // re-run title generation, which only fills rows where the title IS NULL and
 // so would silently overwrite the clear.
 //
@@ -10863,7 +10863,7 @@ func (c *ClientWithResponses) UpdateSessionSessionsSessionIdPatchWithResponse(ct
 //
 // A run's `total_cost_usd` is its LLM (and web-search) charge only. Browser
 // time and proxy bandwidth are metered against the session's browser, which
-// outlives any one run, so this is the endpoint for the session's full cost.
+// outlives any one run — so this is the endpoint for the session's full cost.
 //
 // These are recorded usage costs, not an invoice total: promotional waivers
 // and credits are applied downstream in billing, so a session run under a

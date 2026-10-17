@@ -2,6 +2,11 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.1.1, 2026-10-17
+
+- Generated doc comments keep the API's own description text. The spec patch no longer rewrites dashes or wording in descriptions.
+- `make sec` uses Semgrep 1.181.0. Its pinned requirements now hash every published file, so the development image also builds on arm64.
+
 ## v0.1.0, 2026-10-17
 
 - Added `browseruse`, a REST client generated with oapi-codegen from Browser Use Public API v4, spec version 4.0.0, OpenAPI 3.1.0. It covers all 50 operations across runs, sessions, workspaces, files, wallets, integrations, extensions, browsers, and profiles.

@@ -3,8 +3,6 @@
 # null union branches become nullable, const becomes a singleton enum, and
 # numeric exclusive bounds become a bound plus the boolean exclusive flag.
 # Union alternatives other than null remain intact. No operations are removed.
-# Description punctuation and provider first-person prose are normalized for
-# generated Go comments only; schema names and wire values stay unchanged.
 set -euo pipefail
 trap 'on_error "$?" "$LINENO"' ERR
 
@@ -40,11 +38,6 @@ trap 'rm -f -- "$tmp"' EXIT
 
 jq '
   walk(if type == "object" then
-    (if (.description | type) == "string" then
-      .description |= (gsub(" *[—–] *"; ", ")
-        | gsub("We recommend that you create"; "Create"))
-    else . end)
-    |
     (if has("anyOf") and any(.anyOf[]; .type == "null") then
       .anyOf |= map(select(.type != "null"))
       | .nullable = true
