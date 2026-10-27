@@ -4,7 +4,7 @@ This module is unofficial and not affiliated with Browser Use.
 
 ## Requirements
 
-- Go 1.26.9 or newer, per `go.mod`.
+- Go 1.26.10 or newer, per `go.mod`.
 - A Browser Use Cloud API key, provided as `BROWSER_USE_API_KEY`.
 
 ## Install
