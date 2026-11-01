@@ -2,6 +2,15 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.1.5, 2026-11-01
+
+- Added browser session proxy endpoints: `GetBrowserSessionProxyBrowsersSessionIdProxyGet` reads a session's proxy, and `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` changes it. Both have `WithResponse` variants on `ClientWithResponses`, plus `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody` for a raw body.
+- Added the request builders `NewGetBrowserSessionProxyBrowsersSessionIdProxyGetRequest`, `NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequest` and `NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequestWithBody`, and the response parsers `ParseGetBrowserSessionProxyBrowsersSessionIdProxyGetResponse` and `ParseUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse`.
+- Added the types `BrowserProxyUpdateRequest` (`Country`, `CustomProxy`, `Mode`, `Rotate`, `Target`) and `BrowserProxyView` (`Country`, `ExitIp`, `Mode`), with the mode enums `BrowserProxyUpdateRequestMode` and `BrowserProxyViewMode` (`custom`, `direct`, `managed`).
+- `CustomProxy` has new optional fields `Protocol` (`CustomProxyProtocol`, `http` or `https`), `CaBundle` and `CaBundleUrl` for proxies that need TLS or a custom CA.
+- The six new methods are also added to `ClientInterface` and `ClientWithResponsesInterface`. Code that implements these interfaces, such as a hand-written mock, must add them. Callers of `Client` and `ClientWithResponses` need no change.
+- The doc comment for `RunCreateRequest.Model` no longer calls `bu-ultrafast` and `bu-fast` early-access presets.
+
 ## v0.1.4, 2026-10-28
 
 - Updated Semgrep in the development image to 1.182.1 and refreshed its locked dependencies. certifi 2026.10.23 drops the emSign root CAs whose intermediate keys were compromised (GHSA-6q48-6c7w-9gw2).

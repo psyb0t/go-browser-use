@@ -19,6 +19,48 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for BrowserProxyUpdateRequestMode.
+const (
+	BrowserProxyUpdateRequestModeCustom  BrowserProxyUpdateRequestMode = "custom"
+	BrowserProxyUpdateRequestModeDirect  BrowserProxyUpdateRequestMode = "direct"
+	BrowserProxyUpdateRequestModeManaged BrowserProxyUpdateRequestMode = "managed"
+)
+
+// Valid indicates whether the value is a known member of the BrowserProxyUpdateRequestMode enum.
+func (e BrowserProxyUpdateRequestMode) Valid() bool {
+	switch e {
+	case BrowserProxyUpdateRequestModeCustom:
+		return true
+	case BrowserProxyUpdateRequestModeDirect:
+		return true
+	case BrowserProxyUpdateRequestModeManaged:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BrowserProxyViewMode.
+const (
+	BrowserProxyViewModeCustom  BrowserProxyViewMode = "custom"
+	BrowserProxyViewModeDirect  BrowserProxyViewMode = "direct"
+	BrowserProxyViewModeManaged BrowserProxyViewMode = "managed"
+)
+
+// Valid indicates whether the value is a known member of the BrowserProxyViewMode enum.
+func (e BrowserProxyViewMode) Valid() bool {
+	switch e {
+	case BrowserProxyViewModeCustom:
+		return true
+	case BrowserProxyViewModeDirect:
+		return true
+	case BrowserProxyViewModeManaged:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for BrowserSessionStatus.
 const (
 	BrowserSessionStatusActive  BrowserSessionStatus = "active"
@@ -46,6 +88,24 @@ const (
 func (e BrowserSessionUpdateAction) Valid() bool {
 	switch e {
 	case BrowserSessionUpdateActionStop:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CustomProxyProtocol.
+const (
+	CustomProxyProtocolHttp  CustomProxyProtocol = "http"
+	CustomProxyProtocolHttps CustomProxyProtocol = "https"
+)
+
+// Valid indicates whether the value is a known member of the CustomProxyProtocol enum.
+func (e CustomProxyProtocol) Valid() bool {
+	switch e {
+	case CustomProxyProtocolHttp:
+		return true
+	case CustomProxyProtocolHttps:
 		return true
 	default:
 		return false
@@ -1245,6 +1305,30 @@ type BrowserExtensionView struct {
 	Version string `json:"version"`
 }
 
+// BrowserProxyUpdateRequest defines model for BrowserProxyUpdateRequest.
+type BrowserProxyUpdateRequest struct {
+	Country *string `json:"country,omitempty"`
+
+	// CustomProxy Request model for creating a custom proxy.
+	CustomProxy *CustomProxy                   `json:"customProxy,omitempty"`
+	Mode        *BrowserProxyUpdateRequestMode `json:"mode,omitempty"`
+	Rotate      *bool                          `json:"rotate,omitempty"`
+	Target      *string                        `json:"target,omitempty"`
+}
+
+// BrowserProxyUpdateRequestMode defines model for BrowserProxyUpdateRequest.Mode.
+type BrowserProxyUpdateRequestMode string
+
+// BrowserProxyView defines model for BrowserProxyView.
+type BrowserProxyView struct {
+	Country *string              `json:"country"`
+	ExitIp  *string              `json:"exitIp"`
+	Mode    BrowserProxyViewMode `json:"mode"`
+}
+
+// BrowserProxyViewMode defines model for BrowserProxyView.Mode.
+type BrowserProxyViewMode string
+
 // BrowserSessionItemView View model for representing a browser session in list views.
 type BrowserSessionItemView struct {
 	// AgentSessionId ID of the agent session that created this browser (None for standalone BaaS sessions)
@@ -1421,6 +1505,12 @@ type CreateBrowserSessionRequest struct {
 
 // CustomProxy Request model for creating a custom proxy.
 type CustomProxy struct {
+	// CaBundle PEM certificates that the browser and the proxy connection trust in addition to the public roots, such as the CA of a TLS-intercepting proxy. Other sites keep full certificate checks.
+	CaBundle *string `json:"caBundle,omitempty"`
+
+	// CaBundleUrl HTTPS URL of PEM certificates that Browser Use downloads and trusts in the same way as caBundle. Send either caBundle or caBundleUrl.
+	CaBundleUrl *string `json:"caBundleUrl,omitempty"`
+
 	// Host Host of the proxy.
 	Host string `json:"host"`
 
@@ -1433,9 +1523,15 @@ type CustomProxy struct {
 	// Port Port of the proxy.
 	Port int `json:"port"`
 
+	// Protocol Protocol of the connection to the proxy. Use https for a proxy that accepts only TLS. Defaults to https on port 443 and to http on other ports.
+	Protocol *CustomProxyProtocol `json:"protocol,omitempty"`
+
 	// Username Username for proxy authentication.
 	Username *string `json:"username,omitempty"`
 }
+
+// CustomProxyProtocol Protocol of the connection to the proxy. Use https for a proxy that accepts only TLS. Defaults to https on port 443 and to http on other ports.
+type CustomProxyProtocol string
 
 // DisconnectResponse Response for disconnect action.
 type DisconnectResponse struct {
@@ -1720,7 +1816,7 @@ type RunCreateRequest struct {
 	KeepAlive  *int                         `json:"keepAlive,omitempty"`
 	MaxCostUsd *RunCreateRequest_MaxCostUsd `json:"maxCostUsd,omitempty"`
 
-	// Model bu-ultrafast and bu-fast are early-access ultrafast presets; they take no modelParams and are rejected for projects without access.
+	// Model bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
 	Model *RunCreateRequestModel `json:"model,omitempty"`
 
 	// ModelParams Optional provider-native request parameters for the selected model, written with the provider's own field names and values and forwarded unchanged (e.g. {"reasoning": {"effort": "high"}} for OpenAI, {"thinking": {"type": "adaptive"}} for Anthropic, {"thinkingConfig": {"thinkingLevel": "high"}} for Google). Supported paths and values are per-model; an unsupported path, value, or a model that accepts no parameters at all is rejected with 422. Omitting this field applies the model's default parameters (gpt-6-luna defaults to {"reasoning": {"effort": "high"}}); passing {} opts out of that default and leaves the provider's own defaults in place.
@@ -1754,7 +1850,7 @@ type RunCreateRequest_MaxCostUsd struct {
 	union json.RawMessage
 }
 
-// RunCreateRequestModel bu-ultrafast and bu-fast are early-access ultrafast presets; they take no modelParams and are rejected for projects without access.
+// RunCreateRequestModel bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
 type RunCreateRequestModel string
 
 // RunCreateResponse defines model for RunCreateResponse.
@@ -2228,6 +2324,9 @@ type CreateBrowserSessionBrowsersPostJSONRequestBody = CreateBrowserSessionReque
 
 // UpdateBrowserSessionBrowsersSessionIdPatchJSONRequestBody defines body for UpdateBrowserSessionBrowsersSessionIdPatch for application/json ContentType.
 type UpdateBrowserSessionBrowsersSessionIdPatchJSONRequestBody = UpdateBrowserSessionRequest
+
+// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody defines body for UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch for application/json ContentType.
+type UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody = BrowserProxyUpdateRequest
 
 // UploadExtensionExtensionsPostMultipartRequestBody defines body for UploadExtensionExtensionsPost for multipart/form-data ContentType.
 type UploadExtensionExtensionsPostMultipartRequestBody UploadExtensionExtensionsPostMultipartBody
@@ -2796,6 +2895,25 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /browsers/{session_id}/downloads (the `ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGet` operationId).
 	ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGet(ctx context.Context, sessionId openapi_types.UUID, params *ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetBrowserSessionProxyBrowsersSessionIdProxyGet Get Browser Proxy
+	//
+	// Corresponds with GET /browsers/{session_id}/proxy (the `GetBrowserSessionProxyBrowsersSessionIdProxyGet` operationId).
+	GetBrowserSessionProxyBrowsersSessionIdProxyGet(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody Update Browser Proxy
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+	UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody(ctx context.Context, sessionId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch Update Browser Proxy
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+	UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch(ctx context.Context, sessionId openapi_types.UUID, body UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListExtensionsExtensionsGet List Extensions
 	//
@@ -3533,6 +3651,55 @@ func (c *Client) UpdateBrowserSessionBrowsersSessionIdPatch(ctx context.Context,
 // Corresponds with GET /browsers/{session_id}/downloads (the `ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGet` operationId).
 func (c *Client) ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGet(ctx context.Context, sessionId openapi_types.UUID, params *ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetRequest(c.Server, sessionId, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetBrowserSessionProxyBrowsersSessionIdProxyGet Get Browser Proxy
+//
+// Corresponds with GET /browsers/{session_id}/proxy (the `GetBrowserSessionProxyBrowsersSessionIdProxyGet` operationId).
+func (c *Client) GetBrowserSessionProxyBrowsersSessionIdProxyGet(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetBrowserSessionProxyBrowsersSessionIdProxyGetRequest(c.Server, sessionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody Update Browser Proxy
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+func (c *Client) UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody(ctx context.Context, sessionId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequestWithBody(c.Server, sessionId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch Update Browser Proxy
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+func (c *Client) UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch(ctx context.Context, sessionId openapi_types.UUID, body UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequest(c.Server, sessionId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4967,6 +5134,87 @@ func NewListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetRequest(server s
 	if err != nil {
 		return nil, err
 	}
+
+	return req, nil
+}
+
+// NewGetBrowserSessionProxyBrowsersSessionIdProxyGetRequest constructs an http.Request for the GetBrowserSessionProxyBrowsersSessionIdProxyGet method
+func NewGetBrowserSessionProxyBrowsersSessionIdProxyGetRequest(server string, sessionId openapi_types.UUID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "session_id", sessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/browsers/%s/proxy", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequest calls the generic UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch builder with application/json body
+func NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequest(server string, sessionId openapi_types.UUID, body UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequestWithBody(server, sessionId, "application/json", bodyReader)
+}
+
+// NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequestWithBody constructs an http.Request for the UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch method, with any body, and a specified content type
+func NewUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchRequestWithBody(server string, sessionId openapi_types.UUID, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "session_id", sessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/browsers/%s/proxy", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
 
 	return req, nil
 }
@@ -7119,6 +7367,27 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /browsers/{session_id}/downloads (the `ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGet` operationId).
 	ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, params *ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetParams, reqEditors ...RequestEditorFn) (*ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetResponse, error)
 
+	// GetBrowserSessionProxyBrowsersSessionIdProxyGetWithResponse Get Browser Proxy
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /browsers/{session_id}/proxy (the `GetBrowserSessionProxyBrowsersSessionIdProxyGet` operationId).
+	GetBrowserSessionProxyBrowsersSessionIdProxyGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse, error)
+
+	// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBodyWithResponse Update Browser Proxy
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+	UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBodyWithResponse(ctx context.Context, sessionId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse, error)
+
+	// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithResponse Update Browser Proxy
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+	UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithResponse(ctx context.Context, sessionId openapi_types.UUID, body UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse, error)
+
 	// ListExtensionsExtensionsGetWithResponse List Extensions
 	//
 	// List the extensions uploaded to this project.
@@ -8070,6 +8339,88 @@ func (r ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetResponse) Status
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r ListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *BrowserProxyView
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse) GetJSON200() *BrowserProxyView {
+	return r.JSON200
+}
+
+// GetBody returns the raw response body bytes
+func (r GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *BrowserProxyView
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse) GetJSON200() *BrowserProxyView {
+	return r.JSON200
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -10342,6 +10693,45 @@ func (c *ClientWithResponses) ListBrowserSessionDownloadsBrowsersSessionIdDownlo
 	return ParseListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetResponse(rsp)
 }
 
+// GetBrowserSessionProxyBrowsersSessionIdProxyGetWithResponse Get Browser Proxy
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /browsers/{session_id}/proxy (the `GetBrowserSessionProxyBrowsersSessionIdProxyGet` operationId).
+func (c *ClientWithResponses) GetBrowserSessionProxyBrowsersSessionIdProxyGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse, error) {
+	rsp, err := c.GetBrowserSessionProxyBrowsersSessionIdProxyGet(ctx, sessionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetBrowserSessionProxyBrowsersSessionIdProxyGetResponse(rsp)
+}
+
+// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBodyWithResponse Update Browser Proxy
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+func (c *ClientWithResponses) UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBodyWithResponse(ctx context.Context, sessionId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse, error) {
+	rsp, err := c.UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody(ctx, sessionId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse(rsp)
+}
+
+// UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithResponse Update Browser Proxy
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /browsers/{session_id}/proxy (the `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` operationId).
+func (c *ClientWithResponses) UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithResponse(ctx context.Context, sessionId openapi_types.UUID, body UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse, error) {
+	rsp, err := c.UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch(ctx, sessionId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse(rsp)
+}
+
 // ListExtensionsExtensionsGetWithResponse List Extensions
 //
 // List the extensions uploaded to this project.
@@ -11526,6 +11916,82 @@ func ParseListBrowserSessionDownloadsBrowsersSessionIdDownloadsGetResponse(rsp *
 			return nil, err
 		}
 		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetBrowserSessionProxyBrowsersSessionIdProxyGetResponse parses an HTTP response from a GetBrowserSessionProxyBrowsersSessionIdProxyGetWithResponse call
+func ParseGetBrowserSessionProxyBrowsersSessionIdProxyGetResponse(rsp *http.Response) (*GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetBrowserSessionProxyBrowsersSessionIdProxyGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BrowserProxyView
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 404:
+		break // No content-type
+
+	case rsp.StatusCode == 409:
+		break // No content-type
+
+	case rsp.StatusCode == 422:
+		break // No content-type
+
+	case rsp.StatusCode == 502:
+		break // No content-type
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse parses an HTTP response from a UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithResponse call
+func ParseUpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse(rsp *http.Response) (*UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest BrowserProxyView
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 404:
+		break // No content-type
+
+	case rsp.StatusCode == 409:
+		break // No content-type
+
+	case rsp.StatusCode == 422:
+		break // No content-type
+
+	case rsp.StatusCode == 502:
+		break // No content-type
 
 	}
 
