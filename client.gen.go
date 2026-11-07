@@ -127,6 +127,60 @@ func (e InlineSecretSourceType) Valid() bool {
 	}
 }
 
+// Defines values for NetworkPolicyCreateRequestDefaultAction.
+const (
+	NetworkPolicyCreateRequestDefaultActionAllow NetworkPolicyCreateRequestDefaultAction = "allow"
+	NetworkPolicyCreateRequestDefaultActionBlock NetworkPolicyCreateRequestDefaultAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the NetworkPolicyCreateRequestDefaultAction enum.
+func (e NetworkPolicyCreateRequestDefaultAction) Valid() bool {
+	switch e {
+	case NetworkPolicyCreateRequestDefaultActionAllow:
+		return true
+	case NetworkPolicyCreateRequestDefaultActionBlock:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NetworkPolicyUpdateRequestDefaultAction.
+const (
+	NetworkPolicyUpdateRequestDefaultActionAllow NetworkPolicyUpdateRequestDefaultAction = "allow"
+	NetworkPolicyUpdateRequestDefaultActionBlock NetworkPolicyUpdateRequestDefaultAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the NetworkPolicyUpdateRequestDefaultAction enum.
+func (e NetworkPolicyUpdateRequestDefaultAction) Valid() bool {
+	switch e {
+	case NetworkPolicyUpdateRequestDefaultActionAllow:
+		return true
+	case NetworkPolicyUpdateRequestDefaultActionBlock:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NetworkPolicyViewDefaultAction.
+const (
+	NetworkPolicyViewDefaultActionAllow NetworkPolicyViewDefaultAction = "allow"
+	NetworkPolicyViewDefaultActionBlock NetworkPolicyViewDefaultAction = "block"
+)
+
+// Valid indicates whether the value is a known member of the NetworkPolicyViewDefaultAction enum.
+func (e NetworkPolicyViewDefaultAction) Valid() bool {
+	switch e {
+	case NetworkPolicyViewDefaultActionAllow:
+		return true
+	case NetworkPolicyViewDefaultActionBlock:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for OnePasswordSecretSourceType.
 const (
 	OnePasswordSecretSourceTypeOnepassword OnePasswordSecretSourceType = "onepassword"
@@ -900,16 +954,22 @@ func (e ProxyCountryCode) Valid() bool {
 
 // Defines values for QueuedMessageMode.
 const (
+	QueuedMessageModeConfirmed QueuedMessageMode = "confirmed"
 	QueuedMessageModeInterrupt QueuedMessageMode = "interrupt"
 	QueuedMessageModeQueue     QueuedMessageMode = "queue"
+	QueuedMessageModeSteer     QueuedMessageMode = "steer"
 )
 
 // Valid indicates whether the value is a known member of the QueuedMessageMode enum.
 func (e QueuedMessageMode) Valid() bool {
 	switch e {
+	case QueuedMessageModeConfirmed:
+		return true
 	case QueuedMessageModeInterrupt:
 		return true
 	case QueuedMessageModeQueue:
+		return true
+	case QueuedMessageModeSteer:
 		return true
 	default:
 		return false
@@ -966,38 +1026,38 @@ func (e RunAttachmentStatus) Valid() bool {
 
 // Defines values for RunCreateRequestModel.
 const (
-	RunCreateRequestModelBuFast                RunCreateRequestModel = "bu-fast"
-	RunCreateRequestModelBuUltrafast           RunCreateRequestModel = "bu-ultrafast"
-	RunCreateRequestModelClaudeFable5          RunCreateRequestModel = "claude-fable-5"
-	RunCreateRequestModelClaudeOpus47          RunCreateRequestModel = "claude-opus-4.7"
-	RunCreateRequestModelClaudeOpus48          RunCreateRequestModel = "claude-opus-4.8"
-	RunCreateRequestModelClaudeOpus5           RunCreateRequestModel = "claude-opus-5"
-	RunCreateRequestModelClaudeOpus55          RunCreateRequestModel = "claude-opus-5-5"
-	RunCreateRequestModelClaudeSonnet5         RunCreateRequestModel = "claude-sonnet-5"
-	RunCreateRequestModelClaudeSonnet55        RunCreateRequestModel = "claude-sonnet-5-5"
-	RunCreateRequestModelDeepseekV41Flash      RunCreateRequestModel = "deepseek-v4.1-flash"
-	RunCreateRequestModelDeepseekV4FlashVision RunCreateRequestModel = "deepseek-v4-flash-vision"
-	RunCreateRequestModelGemini31Pro           RunCreateRequestModel = "gemini-3.1-pro"
-	RunCreateRequestModelGemini35Flash         RunCreateRequestModel = "gemini-3.5-flash"
-	RunCreateRequestModelGemini36Flash         RunCreateRequestModel = "gemini-3.6-flash"
-	RunCreateRequestModelGemini3Flash          RunCreateRequestModel = "gemini-3-flash"
-	RunCreateRequestModelGlm52                 RunCreateRequestModel = "glm-5.2"
-	RunCreateRequestModelGlm53Flash            RunCreateRequestModel = "glm-5.3-flash"
-	RunCreateRequestModelGpt55                 RunCreateRequestModel = "gpt-5.5"
-	RunCreateRequestModelGpt56                 RunCreateRequestModel = "gpt-5.6"
-	RunCreateRequestModelGpt56Luna             RunCreateRequestModel = "gpt-5.6-luna"
-	RunCreateRequestModelGpt56Sol              RunCreateRequestModel = "gpt-5.6-sol"
-	RunCreateRequestModelGpt56Terra            RunCreateRequestModel = "gpt-5.6-terra"
-	RunCreateRequestModelGpt61Sol              RunCreateRequestModel = "gpt-6.1-sol"
-	RunCreateRequestModelGpt6Astra             RunCreateRequestModel = "gpt-6-astra"
-	RunCreateRequestModelGpt6Luna              RunCreateRequestModel = "gpt-6-luna"
-	RunCreateRequestModelGpt6Sol               RunCreateRequestModel = "gpt-6-sol"
-	RunCreateRequestModelGrok45                RunCreateRequestModel = "grok-4.5"
-	RunCreateRequestModelGrok46                RunCreateRequestModel = "grok-4.6"
-	RunCreateRequestModelKimiK3                RunCreateRequestModel = "kimi-k3"
-	RunCreateRequestModelMimoV26Flash          RunCreateRequestModel = "mimo-v2.6-flash"
-	RunCreateRequestModelMimoV26Pro            RunCreateRequestModel = "mimo-v2.6-pro"
-	RunCreateRequestModelMinimaxM3             RunCreateRequestModel = "minimax-m3"
+	RunCreateRequestModelBuFast           RunCreateRequestModel = "bu-fast"
+	RunCreateRequestModelBuUltrafast      RunCreateRequestModel = "bu-ultrafast"
+	RunCreateRequestModelClaudeFable5     RunCreateRequestModel = "claude-fable-5"
+	RunCreateRequestModelClaudeOpus47     RunCreateRequestModel = "claude-opus-4.7"
+	RunCreateRequestModelClaudeOpus48     RunCreateRequestModel = "claude-opus-4.8"
+	RunCreateRequestModelClaudeOpus5      RunCreateRequestModel = "claude-opus-5"
+	RunCreateRequestModelClaudeOpus55     RunCreateRequestModel = "claude-opus-5-5"
+	RunCreateRequestModelClaudeSonnet5    RunCreateRequestModel = "claude-sonnet-5"
+	RunCreateRequestModelClaudeSonnet55   RunCreateRequestModel = "claude-sonnet-5-5"
+	RunCreateRequestModelDeepseekV41Flash RunCreateRequestModel = "deepseek-v4.1-flash"
+	RunCreateRequestModelGemini31Pro      RunCreateRequestModel = "gemini-3.1-pro"
+	RunCreateRequestModelGemini35Flash    RunCreateRequestModel = "gemini-3.5-flash"
+	RunCreateRequestModelGemini36Flash    RunCreateRequestModel = "gemini-3.6-flash"
+	RunCreateRequestModelGemini3Flash     RunCreateRequestModel = "gemini-3-flash"
+	RunCreateRequestModelGlm52            RunCreateRequestModel = "glm-5.2"
+	RunCreateRequestModelGlm53Flash       RunCreateRequestModel = "glm-5.3-flash"
+	RunCreateRequestModelGpt55            RunCreateRequestModel = "gpt-5.5"
+	RunCreateRequestModelGpt56            RunCreateRequestModel = "gpt-5.6"
+	RunCreateRequestModelGpt56Luna        RunCreateRequestModel = "gpt-5.6-luna"
+	RunCreateRequestModelGpt56Sol         RunCreateRequestModel = "gpt-5.6-sol"
+	RunCreateRequestModelGpt56Terra       RunCreateRequestModel = "gpt-5.6-terra"
+	RunCreateRequestModelGpt61Sol         RunCreateRequestModel = "gpt-6.1-sol"
+	RunCreateRequestModelGpt61Terra       RunCreateRequestModel = "gpt-6.1-terra"
+	RunCreateRequestModelGpt6Astra        RunCreateRequestModel = "gpt-6-astra"
+	RunCreateRequestModelGpt6Luna         RunCreateRequestModel = "gpt-6-luna"
+	RunCreateRequestModelGpt6Sol          RunCreateRequestModel = "gpt-6-sol"
+	RunCreateRequestModelGrok45           RunCreateRequestModel = "grok-4.5"
+	RunCreateRequestModelGrok46           RunCreateRequestModel = "grok-4.6"
+	RunCreateRequestModelKimiK3           RunCreateRequestModel = "kimi-k3"
+	RunCreateRequestModelMimoV26Flash     RunCreateRequestModel = "mimo-v2.6-flash"
+	RunCreateRequestModelMimoV26Pro       RunCreateRequestModel = "mimo-v2.6-pro"
+	RunCreateRequestModelMinimaxM3        RunCreateRequestModel = "minimax-m3"
 )
 
 // Valid indicates whether the value is a known member of the RunCreateRequestModel enum.
@@ -1023,8 +1083,6 @@ func (e RunCreateRequestModel) Valid() bool {
 		return true
 	case RunCreateRequestModelDeepseekV41Flash:
 		return true
-	case RunCreateRequestModelDeepseekV4FlashVision:
-		return true
 	case RunCreateRequestModelGemini31Pro:
 		return true
 	case RunCreateRequestModelGemini35Flash:
@@ -1048,6 +1106,8 @@ func (e RunCreateRequestModel) Valid() bool {
 	case RunCreateRequestModelGpt56Terra:
 		return true
 	case RunCreateRequestModelGpt61Sol:
+		return true
+	case RunCreateRequestModelGpt61Terra:
 		return true
 	case RunCreateRequestModelGpt6Astra:
 		return true
@@ -1162,6 +1222,21 @@ func (e RunSummaryStatus) Valid() bool {
 	}
 }
 
+// Defines values for SessionBudgetResponseBudgetScope.
+const (
+	SessionBudgetResponseBudgetScopeSession SessionBudgetResponseBudgetScope = "session"
+)
+
+// Valid indicates whether the value is a known member of the SessionBudgetResponseBudgetScope enum.
+func (e SessionBudgetResponseBudgetScope) Valid() bool {
+	switch e {
+	case SessionBudgetResponseBudgetScopeSession:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for SessionInfoStatus.
 const (
 	SessionInfoStatusCancelled   SessionInfoStatus = "cancelled"
@@ -1244,20 +1319,6 @@ type APIKeySpendLimitErrorDetail0 = string
 // APIKeySpendLimitError_Detail defines model for APIKeySpendLimitError.Detail.
 type APIKeySpendLimitError_Detail struct {
 	union json.RawMessage
-}
-
-// AgentCardWalletListResponse defines model for AgentCardWalletListResponse.
-type AgentCardWalletListResponse struct {
-	Wallets []AgentCardWalletSummary `json:"wallets"`
-}
-
-// AgentCardWalletSummary A spendable project wallet as the composer needs to show it.
-type AgentCardWalletSummary struct {
-	ActiveHoldCents int                `json:"activeHoldCents"`
-	AvailableCents  int                `json:"availableCents"`
-	Currency        string             `json:"currency"`
-	Id              openapi_types.UUID `json:"id"`
-	Name            string             `json:"name"`
 }
 
 // AuthorizeResponse Response with OAuth redirect URL.
@@ -1361,7 +1422,7 @@ type BrowserSessionItemView struct {
 	// ProxyUsedMb Amount of proxy data used in MB
 	ProxyUsedMb *string `json:"proxyUsedMb,omitempty"`
 
-	// RecordingUrl Presigned URL to download the session recording. Only populated on `GET /api/v2/browsers/{id}`; always `null` in list responses.
+	// RecordingUrl Presigned URL to download the session recording. Only populated on `GET /browsers/{session_id}`; always `null` in list responses.
 	RecordingUrl *string `json:"recordingUrl,omitempty"`
 
 	// StartedAt Timestamp when the session was created and started
@@ -1443,7 +1504,7 @@ type BrowserSessionView struct {
 	// RecordingAvailable False when a recording can never appear for this session: recording was disabled, or the browser stopped long enough ago that the upload is not coming. Only ever false from proof, so a failed recording lookup leaves it true. Clients polling for `recordingUrl` must stop when this is false.
 	RecordingAvailable *bool `json:"recordingAvailable,omitempty"`
 
-	// RecordingUrl Presigned URL to download the session recording, if recording was enabled. Only populated on GET /api/v2/browsers/{session_id}: the upload starts when the browser stops, so it is never ready in the stop response.
+	// RecordingUrl Presigned URL to download the session recording, if recording was enabled. Only populated on GET /browsers/{session_id}: the upload starts when the browser stops, so it is never ready in the stop response.
 	RecordingUrl *string `json:"recordingUrl,omitempty"`
 
 	// StartedAt Timestamp when the session was created and started
@@ -1488,6 +1549,9 @@ type CreateBrowserSessionRequest struct {
 
 	// Metadata Labels for this browser. Up to 10 key-value pairs. Filterable on the browsers list and in the dashboard history.
 	Metadata *map[string]string `json:"metadata,omitempty"`
+
+	// NetworkPolicyId ID of a network policy that allows or blocks domains for this browser. Policy changes reach the browser within seconds.
+	NetworkPolicyId *openapi_types.UUID `json:"networkPolicyId,omitempty"`
 
 	// PdfRendererEnabled Whether Chrome renders PDFs in a tab. Set to false to stop the in-tab render; the file is saved to the session's download directory either way.
 	PdfRendererEnabled *bool `json:"pdfRendererEnabled,omitempty"`
@@ -1607,6 +1671,79 @@ type IntegrationResponse struct {
 	Provider    string  `json:"provider"`
 }
 
+// NetworkPolicyCreateRequest Request body for creating a network policy.
+type NetworkPolicyCreateRequest struct {
+	// Allow A list of domains.
+	Allow *NetworkPolicyDomainList `json:"allow,omitempty"`
+
+	// Block A list of domains.
+	Block *NetworkPolicyDomainList `json:"block,omitempty"`
+
+	// DefaultAction Action for a domain that no list entry matches.
+	DefaultAction *NetworkPolicyCreateRequestDefaultAction `json:"defaultAction,omitempty"`
+	Name          string                                   `json:"name"`
+}
+
+// NetworkPolicyCreateRequestDefaultAction Action for a domain that no list entry matches.
+type NetworkPolicyCreateRequestDefaultAction string
+
+// NetworkPolicyDomainList A list of domains.
+type NetworkPolicyDomainList struct {
+	// Domains Domains such as example.com; each entry also matches its subdomains.
+	Domains *[]string `json:"domains,omitempty"`
+}
+
+// NetworkPolicyListResponse A page of network policies.
+type NetworkPolicyListResponse struct {
+	Items      []NetworkPolicyView `json:"items"`
+	PageNumber int                 `json:"pageNumber"`
+	PageSize   int                 `json:"pageSize"`
+	TotalItems int                 `json:"totalItems"`
+}
+
+// NetworkPolicyNotFoundError Error response when a network policy is not found
+type NetworkPolicyNotFoundError struct {
+	Detail *string `json:"detail,omitempty"`
+}
+
+// NetworkPolicyUpdateRequest Request body for updating a network policy; omitted fields keep their values.
+type NetworkPolicyUpdateRequest struct {
+	// Allow A list of domains.
+	Allow *NetworkPolicyDomainList `json:"allow,omitempty"`
+
+	// Block A list of domains.
+	Block *NetworkPolicyDomainList `json:"block,omitempty"`
+
+	// DefaultAction Action for a domain that no list entry matches.
+	DefaultAction *NetworkPolicyUpdateRequestDefaultAction `json:"defaultAction,omitempty"`
+	Name          *string                                  `json:"name,omitempty"`
+}
+
+// NetworkPolicyUpdateRequestDefaultAction Action for a domain that no list entry matches.
+type NetworkPolicyUpdateRequestDefaultAction string
+
+// NetworkPolicyView A network policy with normalized domains.
+type NetworkPolicyView struct {
+	// Allow A list of domains.
+	Allow NetworkPolicyDomainList `json:"allow"`
+
+	// Block A list of domains.
+	Block     NetworkPolicyDomainList `json:"block"`
+	CreatedAt time.Time               `json:"createdAt"`
+
+	// DefaultAction Action for a domain that no list entry matches.
+	DefaultAction NetworkPolicyViewDefaultAction `json:"defaultAction"`
+	Id            openapi_types.UUID             `json:"id"`
+	Name          string                         `json:"name"`
+	UpdatedAt     time.Time                      `json:"updatedAt"`
+
+	// Version Starts at 1 and increases by 1 with each update.
+	Version int `json:"version"`
+}
+
+// NetworkPolicyViewDefaultAction Action for a domain that no list entry matches.
+type NetworkPolicyViewDefaultAction string
+
 // OnePasswordSecretSource One field of a 1Password item, resolved only when the agent asks for it.
 //
 // Nothing here is a secret: the quadruple NAMES a credential without carrying
@@ -1712,9 +1849,19 @@ type QueueListResponse struct {
 // be delivered, the message stays queued and runs after the current turn.
 type QueueMessageRequest struct {
 	AttachedFileIds *[]openapi_types.UUID `json:"attachedFileIds,omitempty"`
-	Interrupt       *bool                 `json:"interrupt,omitempty"`
-	Text            string                `json:"text"`
+
+	// ConfirmInputId Explicitly authorize a new execution of this pending instruction. It may have run previously and the new execution may incur charges. Cannot be combined with text, interrupt, or attachedFileIds.
+	ConfirmInputId *int    `json:"confirmInputId,omitempty"`
+	Interrupt      *bool   `json:"interrupt,omitempty"`
+	Text           *string `json:"text,omitempty"`
+	union          json.RawMessage
 }
+
+// QueueMessageRequest0 defines model for QueueMessageRequest.0.
+type QueueMessageRequest0 = interface{}
+
+// QueueMessageRequest1 defines model for QueueMessageRequest.1.
+type QueueMessageRequest1 = interface{}
 
 // QueuedMessage One message on a session's queue (a v4_session_input row).
 type QueuedMessage struct {
@@ -1722,10 +1869,16 @@ type QueuedMessage struct {
 	CreatedAt       time.Time             `json:"createdAt"`
 	Id              int                   `json:"id"`
 	Mode            QueuedMessageMode     `json:"mode"`
-	RunId           *openapi_types.UUID   `json:"runId"`
-	SessionId       openapi_types.UUID    `json:"sessionId"`
-	Status          QueuedMessageStatus   `json:"status"`
-	Text            string                `json:"text"`
+
+	// NeedsConfirmation This pending instruction is held until explicitly reviewed and authorized for a new execution.
+	NeedsConfirmation bool `json:"needsConfirmation"`
+
+	// Reason Why the pending instruction needs confirmation.
+	Reason    *string             `json:"reason,omitempty"`
+	RunId     *openapi_types.UUID `json:"runId"`
+	SessionId openapi_types.UUID  `json:"sessionId"`
+	Status    QueuedMessageStatus `json:"status"`
+	Text      string              `json:"text"`
 }
 
 // QueuedMessageMode defines model for QueuedMessage.Mode.
@@ -1761,7 +1914,9 @@ type RunAttachmentsResponse struct {
 // Profile is the exception: a different profile → 400; an explicit value
 // mismatching the live browser's profile (incl. null vs a profiled browser)
 // declines reuse and provisions fresh. A live browser already matching the
-// requested profile is reused. Extensions are session-wide: follow-ups
+// requested profile is reused. networkPolicyId follows the same rule: an
+// explicit or inherited policy that differs from the live browser's declines
+// reuse. Extensions are session-wide: follow-ups
 // inherit them, and a different set → 400 (see extensionIds).
 type RunBrowserSettings struct {
 	// AllowResizing Let you or the agent resize the browser window over CDP. Resizing makes the browser easier to detect. API runs default to off. Follow-up runs inherit the value of the previous browser. The value applies only when the run starts a new browser.
@@ -1772,6 +1927,9 @@ type RunBrowserSettings struct {
 
 	// ExtensionIds Up to 3 ready extensions from POST /api/v4/extensions to install in every browser of the session. Follow-up runs inherit the session's extensions; passing a different set returns 400. After you delete an extension, omit extensionIds or pass the reduced set; later browsers skip deleted extensions. The agent is not told about installed extensions, so name any extension pages in the task.
 	ExtensionIds *[]openapi_types.UUID `json:"extensionIds,omitempty"`
+
+	// NetworkPolicyId ID of a network policy that allows or blocks domains for this browser. Policy changes reach the browser within seconds. When the field is absent, the run keeps the policy of the session.
+	NetworkPolicyId *openapi_types.UUID `json:"networkPolicyId,omitempty"`
 
 	// ProfileId ID of a browser profile to load into the session. Profiles persist cookies, local storage, and other browser state across sessions.
 	ProfileId        *openapi_types.UUID `json:"profileId,omitempty"`
@@ -1789,11 +1947,10 @@ type RunBrowserSettings struct {
 
 // RunCreateRequest defines model for RunCreateRequest.
 type RunCreateRequest struct {
-	AgentcardWalletId      *openapi_types.UUID `json:"agentcardWalletId,omitempty"`
-	AgenticAutofillGrantId *openapi_types.UUID `json:"agenticAutofillGrantId,omitempty"`
-
 	// Agentmail If true, provisions a persistent temporary email inbox (via AgentMail) for the run workspace. The agent receives the email address in its context and can send, receive, read, and reply to email. Set false to disable AgentMail for this run.
-	Agentmail       *bool                 `json:"agentmail,omitempty"`
+	Agentmail *bool `json:"agentmail,omitempty"`
+
+	// AttachedFileIds Upload ids from POST /workspaces/{workspace_id}/files/upload to show the agent in this run only. Ids that cannot be confirmed are reported, not fatal.
 	AttachedFileIds *[]openapi_types.UUID `json:"attachedFileIds,omitempty"`
 
 	// BrowserSettings Browser config, owned by the browser row (never the run). Follow-ups:
@@ -1802,7 +1959,9 @@ type RunCreateRequest struct {
 	// Profile is the exception: a different profile → 400; an explicit value
 	// mismatching the live browser's profile (incl. null vs a profiled browser)
 	// declines reuse and provisions fresh. A live browser already matching the
-	// requested profile is reused. Extensions are session-wide: follow-ups
+	// requested profile is reused. networkPolicyId follows the same rule: an
+	// explicit or inherited policy that differs from the live browser's declines
+	// reuse. Extensions are session-wide: follow-ups
 	// inherit them, and a different set → 400 (see extensionIds).
 	BrowserSettings *RunBrowserSettings `json:"browserSettings,omitempty"`
 
@@ -1813,13 +1972,15 @@ type RunCreateRequest struct {
 	Judge *RunJudgeSettings `json:"judge,omitempty"`
 
 	// KeepAlive Seconds the session's browser stays open after its last run, so a follow-up run reuses the same page, never past the browser's 4 h lifetime. Default 120. Follow-up runs inherit the session's value; send a new value to change it or null to restore the default. Kept time is billed as browser time. Ignored (always 120) for free-tier and Zero Data Retention projects.
-	KeepAlive  *int                         `json:"keepAlive,omitempty"`
+	KeepAlive *int `json:"keepAlive,omitempty"`
+
+	// MaxCostUsd This budget limits model and search charges in USD. New API sessions default to $25. Use $25 as a starting budget unless the user specifies another amount. Follow-ups keep the current budget when you omit this field. An explicit value replaces the current budget. Account credits do not lower this budget.
 	MaxCostUsd *RunCreateRequest_MaxCostUsd `json:"maxCostUsd,omitempty"`
 
 	// Model bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
 	Model *RunCreateRequestModel `json:"model,omitempty"`
 
-	// ModelParams Optional provider-native request parameters for the selected model, written with the provider's own field names and values and forwarded unchanged (e.g. {"reasoning": {"effort": "high"}} for OpenAI, {"thinking": {"type": "adaptive"}} for Anthropic, {"thinkingConfig": {"thinkingLevel": "high"}} for Google). Supported paths and values are per-model; an unsupported path, value, or a model that accepts no parameters at all is rejected with 422. Omitting this field applies the model's default parameters (gpt-6-luna defaults to {"reasoning": {"effort": "high"}}); passing {} opts out of that default and leaves the provider's own defaults in place.
+	// ModelParams Optional provider-native request parameters for the selected model, written with the provider's own field names and values and forwarded unchanged (e.g. {"reasoning": {"effort": "high"}} for OpenAI, {"thinking": {"type": "adaptive"}} for Anthropic, {"thinkingConfig": {"thinkingLevel": "high"}} for Google). Supported paths and values are per-model; an unsupported path, value, or a model that accepts no parameters at all is rejected with 422. Omitting this field applies the model's default parameters (gpt-6-luna defaults to {"reasoning": {"effort": "high"}}); passing {} opts out of that default and leaves the provider's own defaults in place. On OpenAI models, {"service_tier": "priority"} (alias "fast") requests Fast processing at a higher token price; sent alone it keeps the model's default parameters. Beta: {"context": {"keepScreenshots": "2", "trimAtTokens": "80000", "compactAtTokens": "125000"}} controls what the agent keeps in context for the run: trimAtTokens clears old screenshots and tool output in one batch at that mark (keepScreenshots, which needs it, sets how many recent screenshots stay), and compactAtTokens compacts earlier. Values are strings from short per-model lists; like service_tier it keeps the model's default parameters.
 	ModelParams *map[string]interface{} `json:"modelParams,omitempty"`
 
 	// OpVaultAllowedDomains Hosts every credential from opVaultId may be typed into, e.g. ["amazon.com"]. Omit to derive each item's hosts from its own 1Password website entries; items with no website are then skipped and reported in skippedVaultItems. A host covers its subdomains, so 1Password's ExactDomain autofill setting is not honored either way.
@@ -1832,11 +1993,19 @@ type RunCreateRequest struct {
 	OutputSchema *map[string]interface{} `json:"outputSchema,omitempty"`
 
 	// SecretBindings Credentials this run may use without ever seeing them. The agent can ask the server to type a binding by alias on one of its allowed domains; it cannot read the value. Bindings are not persisted past the run.
-	SecretBindings         *[]SecretBinding    `json:"secretBindings,omitempty"`
-	SessionId              *openapi_types.UUID `json:"sessionId,omitempty"`
+	SecretBindings *[]SecretBinding `json:"secretBindings,omitempty"`
+
+	// SessionId Continue this session; omit to start a new session.
+	SessionId *openapi_types.UUID `json:"sessionId,omitempty"`
+
+	// StripeLinkConnectionId Stripe Link connection (from GET /stripe-link) this run may pay with. A follow-up POST /runs must send it again; queued messages (POST /sessions/{session_id}/queue) keep the previous run's connection.
 	StripeLinkConnectionId *openapi_types.UUID `json:"stripeLinkConnectionId,omitempty"`
-	Task                   string              `json:"task"`
-	WorkspaceId            *openapi_types.UUID `json:"workspaceId,omitempty"`
+
+	// Task What the agent should do in this run.
+	Task string `json:"task"`
+
+	// WorkspaceId Files workspace to use. Omitted on a new session creates one; omitted on a follow-up reuses the session's workspace.
+	WorkspaceId *openapi_types.UUID `json:"workspaceId,omitempty"`
 }
 
 // RunCreateRequestMaxCostUsd0 defines model for RunCreateRequest.MaxCostUsd.0.
@@ -1845,7 +2014,7 @@ type RunCreateRequestMaxCostUsd0 = float64
 // RunCreateRequestMaxCostUsd1 defines model for RunCreateRequest.MaxCostUsd.1.
 type RunCreateRequestMaxCostUsd1 = string
 
-// RunCreateRequest_MaxCostUsd defines model for RunCreateRequest.MaxCostUsd.
+// RunCreateRequest_MaxCostUsd This budget limits model and search charges in USD. New API sessions default to $25. Use $25 as a starting budget unless the user specifies another amount. Follow-ups keep the current budget when you omit this field. An explicit value replaces the current budget. Account credits do not lower this budget.
 type RunCreateRequest_MaxCostUsd struct {
 	union json.RawMessage
 }
@@ -1869,6 +2038,22 @@ type RunCreateResponse struct {
 
 // RunCreateResponseStatus defines model for RunCreateResponse.Status.
 type RunCreateResponseStatus string
+
+// RunCreateValidationError 422 body for POST /runs.
+type RunCreateValidationError struct {
+	Detail RunCreateValidationError_Detail `json:"detail"`
+}
+
+// RunCreateValidationErrorDetail0 defines model for RunCreateValidationError.Detail.0.
+type RunCreateValidationErrorDetail0 = string
+
+// RunCreateValidationErrorDetail1 defines model for RunCreateValidationError.Detail.1.
+type RunCreateValidationErrorDetail1 = []map[string]interface{}
+
+// RunCreateValidationError_Detail defines model for RunCreateValidationError.Detail.
+type RunCreateValidationError_Detail struct {
+	union json.RawMessage
+}
 
 // RunEvent defines model for RunEvent.
 type RunEvent struct {
@@ -1962,8 +2147,26 @@ type SecretBinding_Source struct {
 	union json.RawMessage
 }
 
-// SessionCostCapRequest Set the maximum spend for the active run in a session.
+// SessionBudgetResponse Report recorded budget spending without estimating unfinished model calls.
+type SessionBudgetResponse struct {
+	BudgetScope SessionBudgetResponseBudgetScope `json:"budgetScope"`
+	MaxCostUsd  *string                          `json:"maxCostUsd"`
+	SessionId   openapi_types.UUID               `json:"sessionId"`
+	SpentUsd    string                           `json:"spentUsd"`
+}
+
+// SessionBudgetResponseBudgetScope defines model for SessionBudgetResponse.BudgetScope.
+type SessionBudgetResponseBudgetScope string
+
+// SessionCompactResponse defines model for SessionCompactResponse.
+type SessionCompactResponse struct {
+	Requested bool               `json:"requested"`
+	SessionId openapi_types.UUID `json:"sessionId"`
+}
+
+// SessionCostCapRequest Set the total session budget, including when the session is idle.
 type SessionCostCapRequest struct {
+	// MaxCostUsd This value replaces the session budget in USD. Spending so far counts against this budget. Use the user's chosen budget, or $25 as a starting budget. Preserve a higher existing budget unless the user requests a decrease.
 	MaxCostUsd SessionCostCapRequest_MaxCostUsd `json:"maxCostUsd"`
 }
 
@@ -1973,13 +2176,14 @@ type SessionCostCapRequestMaxCostUsd0 = float64
 // SessionCostCapRequestMaxCostUsd1 defines model for SessionCostCapRequest.MaxCostUsd.1.
 type SessionCostCapRequestMaxCostUsd1 = string
 
-// SessionCostCapRequest_MaxCostUsd defines model for SessionCostCapRequest.MaxCostUsd.
+// SessionCostCapRequest_MaxCostUsd This value replaces the session budget in USD. Spending so far counts against this budget. Use the user's chosen budget, or $25 as a starting budget. Preserve a higher existing budget unless the user requests a decrease.
 type SessionCostCapRequest_MaxCostUsd struct {
 	union json.RawMessage
 }
 
 // SessionCostCapResponse defines model for SessionCostCapResponse.
 type SessionCostCapResponse struct {
+	// MaxCostUsd The session budget now applied, in USD.
 	MaxCostUsd string             `json:"maxCostUsd"`
 	SessionId  openapi_types.UUID `json:"sessionId"`
 }
@@ -2264,6 +2468,12 @@ type ListIntegrationsIntegrationsGetParams struct {
 	ConnectedOnly *bool `form:"connected_only,omitempty" json:"connected_only,omitempty"`
 }
 
+// ListNetworkPoliciesNetworkPoliciesGetParams defines parameters for ListNetworkPoliciesNetworkPoliciesGet.
+type ListNetworkPoliciesNetworkPoliciesGetParams struct {
+	PageSize   *int `form:"pageSize,omitempty" json:"pageSize,omitempty"`
+	PageNumber *int `form:"pageNumber,omitempty" json:"pageNumber,omitempty"`
+}
+
 // ListProfilesProfilesGetParams defines parameters for ListProfilesProfilesGet.
 type ListProfilesProfilesGetParams struct {
 	PageSize   *int    `form:"pageSize,omitempty" json:"pageSize,omitempty"`
@@ -2330,6 +2540,12 @@ type UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchJSONRequestBody = Brows
 
 // UploadExtensionExtensionsPostMultipartRequestBody defines body for UploadExtensionExtensionsPost for multipart/form-data ContentType.
 type UploadExtensionExtensionsPostMultipartRequestBody UploadExtensionExtensionsPostMultipartBody
+
+// CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody defines body for CreateNetworkPolicyNetworkPoliciesPost for application/json ContentType.
+type CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody = NetworkPolicyCreateRequest
+
+// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody defines body for UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch for application/json ContentType.
+type UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody = NetworkPolicyUpdateRequest
 
 // CreateProfileProfilesPostJSONRequestBody defines body for CreateProfileProfilesPost for application/json ContentType.
 type CreateProfileProfilesPostJSONRequestBody = ProfileCreateRequest
@@ -2423,6 +2639,144 @@ func (t *APIKeySpendLimitError_Detail) UnmarshalJSON(b []byte) error {
 	return err
 }
 
+// AsQueueMessageRequest0 returns the union data inside the QueueMessageRequest as a QueueMessageRequest0
+func (t QueueMessageRequest) AsQueueMessageRequest0() (QueueMessageRequest0, error) {
+	var body QueueMessageRequest0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromQueueMessageRequest0 overwrites any union data inside the QueueMessageRequest as the provided QueueMessageRequest0
+func (t *QueueMessageRequest) FromQueueMessageRequest0(v QueueMessageRequest0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeQueueMessageRequest0 performs a merge with any union data inside the QueueMessageRequest, using the provided QueueMessageRequest0
+func (t *QueueMessageRequest) MergeQueueMessageRequest0(v QueueMessageRequest0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsQueueMessageRequest1 returns the union data inside the QueueMessageRequest as a QueueMessageRequest1
+func (t QueueMessageRequest) AsQueueMessageRequest1() (QueueMessageRequest1, error) {
+	var body QueueMessageRequest1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromQueueMessageRequest1 overwrites any union data inside the QueueMessageRequest as the provided QueueMessageRequest1
+func (t *QueueMessageRequest) FromQueueMessageRequest1(v QueueMessageRequest1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeQueueMessageRequest1 performs a merge with any union data inside the QueueMessageRequest, using the provided QueueMessageRequest1
+func (t *QueueMessageRequest) MergeQueueMessageRequest1(v QueueMessageRequest1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t QueueMessageRequest) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	object := make(map[string]json.RawMessage)
+	if t.union != nil {
+		err = json.Unmarshal(b, &object)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if t.AttachedFileIds != nil {
+		object["attachedFileIds"], err = json.Marshal(t.AttachedFileIds)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'attachedFileIds': %w", err)
+		}
+	}
+
+	if t.ConfirmInputId != nil {
+		object["confirmInputId"], err = json.Marshal(t.ConfirmInputId)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'confirmInputId': %w", err)
+		}
+	}
+
+	if t.Interrupt != nil {
+		object["interrupt"], err = json.Marshal(t.Interrupt)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'interrupt': %w", err)
+		}
+	}
+
+	if t.Text != nil {
+		object["text"], err = json.Marshal(t.Text)
+		if err != nil {
+			return nil, fmt.Errorf("error marshaling 'text': %w", err)
+		}
+	}
+	b, err = json.Marshal(object)
+	return b, err
+}
+
+func (t *QueueMessageRequest) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	if err != nil {
+		return err
+	}
+	object := make(map[string]json.RawMessage)
+	err = json.Unmarshal(b, &object)
+	if err != nil {
+		return err
+	}
+
+	if raw, found := object["attachedFileIds"]; found {
+		err = json.Unmarshal(raw, &t.AttachedFileIds)
+		if err != nil {
+			return fmt.Errorf("error reading 'attachedFileIds': %w", err)
+		}
+	}
+
+	if raw, found := object["confirmInputId"]; found {
+		err = json.Unmarshal(raw, &t.ConfirmInputId)
+		if err != nil {
+			return fmt.Errorf("error reading 'confirmInputId': %w", err)
+		}
+	}
+
+	if raw, found := object["interrupt"]; found {
+		err = json.Unmarshal(raw, &t.Interrupt)
+		if err != nil {
+			return fmt.Errorf("error reading 'interrupt': %w", err)
+		}
+	}
+
+	if raw, found := object["text"]; found {
+		err = json.Unmarshal(raw, &t.Text)
+		if err != nil {
+			return fmt.Errorf("error reading 'text': %w", err)
+		}
+	}
+
+	return err
+}
+
 // AsRunCreateRequestMaxCostUsd0 returns the union data inside the RunCreateRequest_MaxCostUsd as a RunCreateRequestMaxCostUsd0
 func (t RunCreateRequest_MaxCostUsd) AsRunCreateRequestMaxCostUsd0() (RunCreateRequestMaxCostUsd0, error) {
 	var body RunCreateRequestMaxCostUsd0
@@ -2481,6 +2835,68 @@ func (t RunCreateRequest_MaxCostUsd) MarshalJSON() ([]byte, error) {
 }
 
 func (t *RunCreateRequest_MaxCostUsd) UnmarshalJSON(b []byte) error {
+	err := t.union.UnmarshalJSON(b)
+	return err
+}
+
+// AsRunCreateValidationErrorDetail0 returns the union data inside the RunCreateValidationError_Detail as a RunCreateValidationErrorDetail0
+func (t RunCreateValidationError_Detail) AsRunCreateValidationErrorDetail0() (RunCreateValidationErrorDetail0, error) {
+	var body RunCreateValidationErrorDetail0
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRunCreateValidationErrorDetail0 overwrites any union data inside the RunCreateValidationError_Detail as the provided RunCreateValidationErrorDetail0
+func (t *RunCreateValidationError_Detail) FromRunCreateValidationErrorDetail0(v RunCreateValidationErrorDetail0) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRunCreateValidationErrorDetail0 performs a merge with any union data inside the RunCreateValidationError_Detail, using the provided RunCreateValidationErrorDetail0
+func (t *RunCreateValidationError_Detail) MergeRunCreateValidationErrorDetail0(v RunCreateValidationErrorDetail0) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+// AsRunCreateValidationErrorDetail1 returns the union data inside the RunCreateValidationError_Detail as a RunCreateValidationErrorDetail1
+func (t RunCreateValidationError_Detail) AsRunCreateValidationErrorDetail1() (RunCreateValidationErrorDetail1, error) {
+	var body RunCreateValidationErrorDetail1
+	err := json.Unmarshal(t.union, &body)
+	return body, err
+}
+
+// FromRunCreateValidationErrorDetail1 overwrites any union data inside the RunCreateValidationError_Detail as the provided RunCreateValidationErrorDetail1
+func (t *RunCreateValidationError_Detail) FromRunCreateValidationErrorDetail1(v RunCreateValidationErrorDetail1) error {
+	b, err := json.Marshal(v)
+	t.union = b
+	return err
+}
+
+// MergeRunCreateValidationErrorDetail1 performs a merge with any union data inside the RunCreateValidationError_Detail, using the provided RunCreateValidationErrorDetail1
+func (t *RunCreateValidationError_Detail) MergeRunCreateValidationErrorDetail1(v RunCreateValidationErrorDetail1) error {
+	b, err := json.Marshal(v)
+	if err != nil {
+		return err
+	}
+
+	merged, err := runtime.JSONMerge(t.union, b)
+	t.union = merged
+	return err
+}
+
+func (t RunCreateValidationError_Detail) MarshalJSON() ([]byte, error) {
+	b, err := t.union.MarshalJSON()
+	return b, err
+}
+
+func (t *RunCreateValidationError_Detail) UnmarshalJSON(b []byte) error {
 	err := t.union.UnmarshalJSON(b)
 	return err
 }
@@ -2784,18 +3200,6 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 // The interface specification for the client above.
 type ClientInterface interface {
 
-	// ListAgentcardWalletsAgentcardWalletsGet List Agentcard Wallets
-	//
-	// The project's active AgentCard wallets, newest first.
-	//
-	// Read-only: funding is admin-only during the beta. The UI uses this to offer
-	// a wallet on the composer, which is how a run opts into spending — the id
-	// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
-	// against this same project.
-	//
-	// Corresponds with GET /agentcard/wallets (the `ListAgentcardWalletsAgentcardWalletsGet` operationId).
-	ListAgentcardWalletsAgentcardWalletsGet(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error)
-
 	// ListBrowserSessionsBrowsersGet List Browser Sessions
 	//
 	// Get paginated list of browser sessions with optional status filtering.
@@ -2806,7 +3210,7 @@ type ClientInterface interface {
 	// and blocks the event loop. With page_size up to the max this CPU-pegs the
 	// worker and starves the DB pool, cascading into pool exhaustion across the
 	// fleet. Clients should fetch the recording URL on demand via
-	// `GET /api/v2/browsers/{id}`, which signs exactly one URL for a single
+	// `GET /browsers/{session_id}`, which signs exactly one URL for a single
 	// session. Mirrors the v3 sessions list fix (ENG-4904, PR #4621).
 	//
 	// Corresponds with GET /browsers (the `ListBrowserSessionsBrowsersGet` operationId).
@@ -2993,6 +3397,67 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /integrations/{provider}/status (the `GetConnectionStatusIntegrationsProviderStatusGet` operationId).
 	GetConnectionStatusIntegrationsProviderStatusGet(ctx context.Context, provider string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListNetworkPoliciesNetworkPoliciesGet List Network Policies
+	//
+	// Get a paginated list of the project's network policies, newest first.
+	//
+	// Corresponds with GET /network-policies (the `ListNetworkPoliciesNetworkPoliciesGet` operationId).
+	ListNetworkPoliciesNetworkPoliciesGet(ctx context.Context, params *ListNetworkPoliciesNetworkPoliciesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateNetworkPolicyNetworkPoliciesPostWithBody Create Network Policy
+	//
+	// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+	//
+	// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+	CreateNetworkPolicyNetworkPoliciesPostWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// CreateNetworkPolicyNetworkPoliciesPost Create Network Policy
+	//
+	// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+	//
+	// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+	CreateNetworkPolicyNetworkPoliciesPost(ctx context.Context, body CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete Delete Network Policy
+	//
+	// Delete a network policy. Browsers that use it continue without a customer network policy.
+	//
+	// Corresponds with DELETE /network-policies/{policy_id} (the `DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete` operationId).
+	DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetNetworkPolicyNetworkPoliciesPolicyIdGet Get Network Policy
+	//
+	// Get a network policy.
+	//
+	// Corresponds with GET /network-policies/{policy_id} (the `GetNetworkPolicyNetworkPoliciesPolicyIdGet` operationId).
+	GetNetworkPolicyNetworkPoliciesPolicyIdGet(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBody Update Network Policy
+	//
+	// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+	UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBody(ctx context.Context, policyId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch Update Network Policy
+	//
+	// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+	UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch(ctx context.Context, policyId openapi_types.UUID, body UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListProfilesProfilesGet List Profiles
 	//
@@ -3216,6 +3681,13 @@ type ClientInterface interface {
 	// Corresponds with PATCH /sessions/{session_id} (the `UpdateSessionSessionsSessionIdPatch` operationId).
 	UpdateSessionSessionsSessionIdPatch(ctx context.Context, sessionId openapi_types.UUID, body UpdateSessionSessionsSessionIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// CompactSessionSessionsSessionIdCompactPost Compact Session Context (beta)
+	//
+	// Beta. Ask the session's running agent to summarize its context before its next model call. Returns 409 when the session has no running run or that run did not start with modelParams.context.
+	//
+	// Corresponds with POST /sessions/{session_id}/compact (the `CompactSessionSessionsSessionIdCompactPost` operationId).
+	CompactSessionSessionsSessionIdCompactPost(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// GetSessionCostSessionsSessionIdCostGet Get Session Cost
 	//
 	// Everything this session has cost so far, split by source.
@@ -3235,9 +3707,16 @@ type ClientInterface interface {
 	// Corresponds with GET /sessions/{session_id}/cost (the `GetSessionCostSessionsSessionIdCostGet` operationId).
 	GetSessionCostSessionsSessionIdCostGet(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// GetSessionCostCapSessionsSessionIdCostCapGet Get Session Cost Cap
+	//
+	// Read committed budget spending from the primary database.
+	//
+	// Corresponds with GET /sessions/{session_id}/cost-cap (the `GetSessionCostCapSessionsSessionIdCostCapGet` operationId).
+	GetSessionCostCapSessionsSessionIdCostCapGet(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// UpdateSessionCostCapSessionsSessionIdCostCapPatchWithBody Update Session Cost Cap
 	//
-	// Update the active run cap without starting another run.
+	// Replace the session budget without resetting spending or starting a run.
 	//
 	// Takes any type of body and a specified content type.
 	//
@@ -3246,7 +3725,7 @@ type ClientInterface interface {
 
 	// UpdateSessionCostCapSessionsSessionIdCostCapPatch Update Session Cost Cap
 	//
-	// Update the active run cap without starting another run.
+	// Replace the session budget without resetting spending or starting a run.
 	//
 	// Takes a body of the `application/json` content type.
 	//
@@ -3469,28 +3948,6 @@ type ClientInterface interface {
 	GetWorkspaceSizeWorkspacesWorkspaceIdSizeGet(ctx context.Context, workspaceId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
-// ListAgentcardWalletsAgentcardWalletsGet List Agentcard Wallets
-//
-// The project's active AgentCard wallets, newest first.
-//
-// Read-only: funding is admin-only during the beta. The UI uses this to offer
-// a wallet on the composer, which is how a run opts into spending — the id
-// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
-// against this same project.
-//
-// Corresponds with GET /agentcard/wallets (the `ListAgentcardWalletsAgentcardWalletsGet` operationId).
-func (c *Client) ListAgentcardWalletsAgentcardWalletsGet(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewListAgentcardWalletsAgentcardWalletsGetRequest(c.Server)
-	if err != nil {
-		return nil, err
-	}
-	req = req.WithContext(ctx)
-	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
-		return nil, err
-	}
-	return c.Client.Do(req)
-}
-
 // ListBrowserSessionsBrowsersGet List Browser Sessions
 //
 // Get paginated list of browser sessions with optional status filtering.
@@ -3501,7 +3958,7 @@ func (c *Client) ListAgentcardWalletsAgentcardWalletsGet(ctx context.Context, re
 // and blocks the event loop. With page_size up to the max this CPU-pegs the
 // worker and starves the DB pool, cascading into pool exhaustion across the
 // fleet. Clients should fetch the recording URL on demand via
-// `GET /api/v2/browsers/{id}`, which signs exactly one URL for a single
+// `GET /browsers/{session_id}`, which signs exactly one URL for a single
 // session. Mirrors the v3 sessions list fix (ENG-4904, PR #4621).
 //
 // Corresponds with GET /browsers (the `ListBrowserSessionsBrowsersGet` operationId).
@@ -3869,6 +4326,137 @@ func (c *Client) AuthorizeIntegrationIntegrationsProviderAuthorizePost(ctx conte
 // Corresponds with GET /integrations/{provider}/status (the `GetConnectionStatusIntegrationsProviderStatusGet` operationId).
 func (c *Client) GetConnectionStatusIntegrationsProviderStatusGet(ctx context.Context, provider string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetConnectionStatusIntegrationsProviderStatusGetRequest(c.Server, provider)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// ListNetworkPoliciesNetworkPoliciesGet List Network Policies
+//
+// Get a paginated list of the project's network policies, newest first.
+//
+// Corresponds with GET /network-policies (the `ListNetworkPoliciesNetworkPoliciesGet` operationId).
+func (c *Client) ListNetworkPoliciesNetworkPoliciesGet(ctx context.Context, params *ListNetworkPoliciesNetworkPoliciesGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListNetworkPoliciesNetworkPoliciesGetRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateNetworkPolicyNetworkPoliciesPostWithBody Create Network Policy
+//
+// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+//
+// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+func (c *Client) CreateNetworkPolicyNetworkPoliciesPostWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNetworkPolicyNetworkPoliciesPostRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// CreateNetworkPolicyNetworkPoliciesPost Create Network Policy
+//
+// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+//
+// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+func (c *Client) CreateNetworkPolicyNetworkPoliciesPost(ctx context.Context, body CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCreateNetworkPolicyNetworkPoliciesPostRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete Delete Network Policy
+//
+// Delete a network policy. Browsers that use it continue without a customer network policy.
+//
+// Corresponds with DELETE /network-policies/{policy_id} (the `DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete` operationId).
+func (c *Client) DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteRequest(c.Server, policyId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetNetworkPolicyNetworkPoliciesPolicyIdGet Get Network Policy
+//
+// Get a network policy.
+//
+// Corresponds with GET /network-policies/{policy_id} (the `GetNetworkPolicyNetworkPoliciesPolicyIdGet` operationId).
+func (c *Client) GetNetworkPolicyNetworkPoliciesPolicyIdGet(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetNetworkPolicyNetworkPoliciesPolicyIdGetRequest(c.Server, policyId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBody Update Network Policy
+//
+// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+func (c *Client) UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBody(ctx context.Context, policyId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequestWithBody(c.Server, policyId, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch Update Network Policy
+//
+// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+func (c *Client) UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch(ctx context.Context, policyId openapi_types.UUID, body UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequest(c.Server, policyId, body)
 	if err != nil {
 		return nil, err
 	}
@@ -4301,6 +4889,23 @@ func (c *Client) UpdateSessionSessionsSessionIdPatch(ctx context.Context, sessio
 	return c.Client.Do(req)
 }
 
+// CompactSessionSessionsSessionIdCompactPost Compact Session Context (beta)
+//
+// Beta. Ask the session's running agent to summarize its context before its next model call. Returns 409 when the session has no running run or that run did not start with modelParams.context.
+//
+// Corresponds with POST /sessions/{session_id}/compact (the `CompactSessionSessionsSessionIdCompactPost` operationId).
+func (c *Client) CompactSessionSessionsSessionIdCompactPost(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewCompactSessionSessionsSessionIdCompactPostRequest(c.Server, sessionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // GetSessionCostSessionsSessionIdCostGet Get Session Cost
 //
 // Everything this session has cost so far, split by source.
@@ -4330,9 +4935,26 @@ func (c *Client) GetSessionCostSessionsSessionIdCostGet(ctx context.Context, ses
 	return c.Client.Do(req)
 }
 
+// GetSessionCostCapSessionsSessionIdCostCapGet Get Session Cost Cap
+//
+// Read committed budget spending from the primary database.
+//
+// Corresponds with GET /sessions/{session_id}/cost-cap (the `GetSessionCostCapSessionsSessionIdCostCapGet` operationId).
+func (c *Client) GetSessionCostCapSessionsSessionIdCostCapGet(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetSessionCostCapSessionsSessionIdCostCapGetRequest(c.Server, sessionId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 // UpdateSessionCostCapSessionsSessionIdCostCapPatchWithBody Update Session Cost Cap
 //
-// Update the active run cap without starting another run.
+// Replace the session budget without resetting spending or starting a run.
 //
 // Takes any type of body and a specified content type.
 //
@@ -4351,7 +4973,7 @@ func (c *Client) UpdateSessionCostCapSessionsSessionIdCostCapPatchWithBody(ctx c
 
 // UpdateSessionCostCapSessionsSessionIdCostCapPatch Update Session Cost Cap
 //
-// Update the active run cap without starting another run.
+// Replace the session budget without resetting spending or starting a run.
 //
 // Takes a body of the `application/json` content type.
 //
@@ -4801,33 +5423,6 @@ func (c *Client) GetWorkspaceSizeWorkspacesWorkspaceIdSizeGet(ctx context.Contex
 		return nil, err
 	}
 	return c.Client.Do(req)
-}
-
-// NewListAgentcardWalletsAgentcardWalletsGetRequest constructs an http.Request for the ListAgentcardWalletsAgentcardWalletsGet method
-func NewListAgentcardWalletsAgentcardWalletsGetRequest(server string) (*http.Request, error) {
-	var err error
-
-	serverURL, err := url.Parse(server)
-	if err != nil {
-		return nil, err
-	}
-
-	operationPath := fmt.Sprintf("/agentcard/wallets")
-	if operationPath[0] == '/' {
-		operationPath = "." + operationPath
-	}
-
-	queryURL, err := serverURL.Parse(operationPath)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
 }
 
 // NewListBrowserSessionsBrowsersGetRequest constructs an http.Request for the ListBrowserSessionsBrowsersGet method
@@ -5613,6 +6208,227 @@ func NewGetConnectionStatusIntegrationsProviderStatusGetRequest(server string, p
 	return req, nil
 }
 
+// NewListNetworkPoliciesNetworkPoliciesGetRequest constructs an http.Request for the ListNetworkPoliciesNetworkPoliciesGet method
+func NewListNetworkPoliciesNetworkPoliciesGetRequest(server string, params *ListNetworkPoliciesNetworkPoliciesGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/network-policies")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.PageSize != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "pageSize", *params.PageSize, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PageNumber != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "pageNumber", *params.PageNumber, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewCreateNetworkPolicyNetworkPoliciesPostRequest calls the generic CreateNetworkPolicyNetworkPoliciesPost builder with application/json body
+func NewCreateNetworkPolicyNetworkPoliciesPostRequest(server string, body CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewCreateNetworkPolicyNetworkPoliciesPostRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewCreateNetworkPolicyNetworkPoliciesPostRequestWithBody constructs an http.Request for the CreateNetworkPolicyNetworkPoliciesPost method, with any body, and a specified content type
+func NewCreateNetworkPolicyNetworkPoliciesPostRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/network-policies")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteRequest constructs an http.Request for the DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete method
+func NewDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteRequest(server string, policyId openapi_types.UUID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "policy_id", policyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/network-policies/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodDelete, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetNetworkPolicyNetworkPoliciesPolicyIdGetRequest constructs an http.Request for the GetNetworkPolicyNetworkPoliciesPolicyIdGet method
+func NewGetNetworkPolicyNetworkPoliciesPolicyIdGetRequest(server string, policyId openapi_types.UUID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "policy_id", policyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/network-policies/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequest calls the generic UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch builder with application/json body
+func NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequest(server string, policyId openapi_types.UUID, body UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequestWithBody(server, policyId, "application/json", bodyReader)
+}
+
+// NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequestWithBody constructs an http.Request for the UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch method, with any body, and a specified content type
+func NewUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchRequestWithBody(server string, policyId openapi_types.UUID, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "policy_id", policyId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/network-policies/%s", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPatch, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
 // NewListProfilesProfilesGetRequest constructs an http.Request for the ListProfilesProfilesGet method
 func NewListProfilesProfilesGetRequest(server string, params *ListProfilesProfilesGetParams) (*http.Request, error) {
 	var err error
@@ -6366,6 +7182,40 @@ func NewUpdateSessionSessionsSessionIdPatchRequestWithBody(server string, sessio
 	return req, nil
 }
 
+// NewCompactSessionSessionsSessionIdCompactPostRequest constructs an http.Request for the CompactSessionSessionsSessionIdCompactPost method
+func NewCompactSessionSessionsSessionIdCompactPostRequest(server string, sessionId openapi_types.UUID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "session_id", sessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sessions/%s/compact", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetSessionCostSessionsSessionIdCostGetRequest constructs an http.Request for the GetSessionCostSessionsSessionIdCostGet method
 func NewGetSessionCostSessionsSessionIdCostGetRequest(server string, sessionId openapi_types.UUID) (*http.Request, error) {
 	var err error
@@ -6383,6 +7233,40 @@ func NewGetSessionCostSessionsSessionIdCostGetRequest(server string, sessionId o
 	}
 
 	operationPath := fmt.Sprintf("/sessions/%s/cost", pathParam0)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewGetSessionCostCapSessionsSessionIdCostCapGetRequest constructs an http.Request for the GetSessionCostCapSessionsSessionIdCostCapGet method
+func NewGetSessionCostCapSessionsSessionIdCostCapGetRequest(server string, sessionId openapi_types.UUID) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "session_id", sessionId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: "uuid"})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/sessions/%s/cost-cap", pathParam0)
 	if operationPath[0] == '/' {
 		operationPath = "." + operationPath
 	}
@@ -7247,20 +8131,6 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 
-	// ListAgentcardWalletsAgentcardWalletsGetWithResponse List Agentcard Wallets
-	//
-	// The project's active AgentCard wallets, newest first.
-	//
-	// Read-only: funding is admin-only during the beta. The UI uses this to offer
-	// a wallet on the composer, which is how a run opts into spending — the id
-	// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
-	// against this same project.
-	//
-	// Returns a wrapper object for the known response body format(s).
-	//
-	// Corresponds with GET /agentcard/wallets (the `ListAgentcardWalletsAgentcardWalletsGet` operationId).
-	ListAgentcardWalletsAgentcardWalletsGetWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListAgentcardWalletsAgentcardWalletsGetResponse, error)
-
 	// ListBrowserSessionsBrowsersGetWithResponse List Browser Sessions
 	//
 	// Get paginated list of browser sessions with optional status filtering.
@@ -7271,7 +8141,7 @@ type ClientWithResponsesInterface interface {
 	// and blocks the event loop. With page_size up to the max this CPU-pegs the
 	// worker and starves the DB pool, cascading into pool exhaustion across the
 	// fleet. Clients should fetch the recording URL on demand via
-	// `GET /api/v2/browsers/{id}`, which signs exactly one URL for a single
+	// `GET /browsers/{session_id}`, which signs exactly one URL for a single
 	// session. Mirrors the v3 sessions list fix (ENG-4904, PR #4621).
 	//
 	// Returns a wrapper object for the known response body format(s).
@@ -7482,6 +8352,73 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /integrations/{provider}/status (the `GetConnectionStatusIntegrationsProviderStatusGet` operationId).
 	GetConnectionStatusIntegrationsProviderStatusGetWithResponse(ctx context.Context, provider string, reqEditors ...RequestEditorFn) (*GetConnectionStatusIntegrationsProviderStatusGetResponse, error)
+
+	// ListNetworkPoliciesNetworkPoliciesGetWithResponse List Network Policies
+	//
+	// Get a paginated list of the project's network policies, newest first.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /network-policies (the `ListNetworkPoliciesNetworkPoliciesGet` operationId).
+	ListNetworkPoliciesNetworkPoliciesGetWithResponse(ctx context.Context, params *ListNetworkPoliciesNetworkPoliciesGetParams, reqEditors ...RequestEditorFn) (*ListNetworkPoliciesNetworkPoliciesGetResponse, error)
+
+	// CreateNetworkPolicyNetworkPoliciesPostWithBodyWithResponse Create Network Policy
+	//
+	// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+	//
+	// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+	CreateNetworkPolicyNetworkPoliciesPostWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetworkPolicyNetworkPoliciesPostResponse, error)
+
+	// CreateNetworkPolicyNetworkPoliciesPostWithResponse Create Network Policy
+	//
+	// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+	//
+	// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+	CreateNetworkPolicyNetworkPoliciesPostWithResponse(ctx context.Context, body CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetworkPolicyNetworkPoliciesPostResponse, error)
+
+	// DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteWithResponse Delete Network Policy
+	//
+	// Delete a network policy. Browsers that use it continue without a customer network policy.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with DELETE /network-policies/{policy_id} (the `DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete` operationId).
+	DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteWithResponse(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse, error)
+
+	// GetNetworkPolicyNetworkPoliciesPolicyIdGetWithResponse Get Network Policy
+	//
+	// Get a network policy.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /network-policies/{policy_id} (the `GetNetworkPolicyNetworkPoliciesPolicyIdGet` operationId).
+	GetNetworkPolicyNetworkPoliciesPolicyIdGetWithResponse(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse, error)
+
+	// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBodyWithResponse Update Network Policy
+	//
+	// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+	UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBodyWithResponse(ctx context.Context, policyId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse, error)
+
+	// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithResponse Update Network Policy
+	//
+	// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+	UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithResponse(ctx context.Context, policyId openapi_types.UUID, body UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse, error)
 
 	// ListProfilesProfilesGetWithResponse List Profiles
 	//
@@ -7729,6 +8666,15 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with PATCH /sessions/{session_id} (the `UpdateSessionSessionsSessionIdPatch` operationId).
 	UpdateSessionSessionsSessionIdPatchWithResponse(ctx context.Context, sessionId openapi_types.UUID, body UpdateSessionSessionsSessionIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateSessionSessionsSessionIdPatchResponse, error)
 
+	// CompactSessionSessionsSessionIdCompactPostWithResponse Compact Session Context (beta)
+	//
+	// Beta. Ask the session's running agent to summarize its context before its next model call. Returns 409 when the session has no running run or that run did not start with modelParams.context.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /sessions/{session_id}/compact (the `CompactSessionSessionsSessionIdCompactPost` operationId).
+	CompactSessionSessionsSessionIdCompactPostWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*CompactSessionSessionsSessionIdCompactPostResponse, error)
+
 	// GetSessionCostSessionsSessionIdCostGetWithResponse Get Session Cost
 	//
 	// Everything this session has cost so far, split by source.
@@ -7750,9 +8696,18 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /sessions/{session_id}/cost (the `GetSessionCostSessionsSessionIdCostGet` operationId).
 	GetSessionCostSessionsSessionIdCostGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetSessionCostSessionsSessionIdCostGetResponse, error)
 
+	// GetSessionCostCapSessionsSessionIdCostCapGetWithResponse Get Session Cost Cap
+	//
+	// Read committed budget spending from the primary database.
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /sessions/{session_id}/cost-cap (the `GetSessionCostCapSessionsSessionIdCostCapGet` operationId).
+	GetSessionCostCapSessionsSessionIdCostCapGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetSessionCostCapSessionsSessionIdCostCapGetResponse, error)
+
 	// UpdateSessionCostCapSessionsSessionIdCostCapPatchWithBodyWithResponse Update Session Cost Cap
 	//
-	// Update the active run cap without starting another run.
+	// Replace the session budget without resetting spending or starting a run.
 	//
 	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -7761,7 +8716,7 @@ type ClientWithResponsesInterface interface {
 
 	// UpdateSessionCostCapSessionsSessionIdCostCapPatchWithResponse Update Session Cost Cap
 	//
-	// Update the active run cap without starting another run.
+	// Replace the session budget without resetting spending or starting a run.
 	//
 	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 	//
@@ -8006,54 +8961,6 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /workspaces/{workspace_id}/size (the `GetWorkspaceSizeWorkspacesWorkspaceIdSizeGet` operationId).
 	GetWorkspaceSizeWorkspacesWorkspaceIdSizeGetWithResponse(ctx context.Context, workspaceId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetWorkspaceSizeWorkspacesWorkspaceIdSizeGetResponse, error)
-}
-
-type ListAgentcardWalletsAgentcardWalletsGetResponse struct {
-	Body         []byte
-	HTTPResponse *http.Response
-	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *AgentCardWalletListResponse
-	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *HTTPValidationError
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) GetJSON200() *AgentCardWalletListResponse {
-	return r.JSON200
-}
-
-// GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) GetJSON422() *HTTPValidationError {
-	return r.JSON422
-}
-
-// GetBody returns the raw response body bytes
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) GetBody() []byte {
-	return r.Body
-}
-
-// Status returns HTTPResponse.Status
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) Status() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Status
-	}
-	return http.StatusText(0)
-}
-
-// StatusCode returns HTTPResponse.StatusCode
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) StatusCode() int {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.StatusCode
-	}
-	return 0
-}
-
-// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r ListAgentcardWalletsAgentcardWalletsGetResponse) ContentType() string {
-	if r.HTTPResponse != nil {
-		return r.HTTPResponse.Header.Get("Content-Type")
-	}
-	return ""
 }
 
 type ListBrowserSessionsBrowsersGetResponse struct {
@@ -8845,6 +9752,253 @@ func (r GetConnectionStatusIntegrationsProviderStatusGetResponse) ContentType() 
 	return ""
 }
 
+type ListNetworkPoliciesNetworkPoliciesGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *NetworkPolicyListResponse
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) GetJSON200() *NetworkPolicyListResponse {
+	return r.JSON200
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r ListNetworkPoliciesNetworkPoliciesGetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type CreateNetworkPolicyNetworkPoliciesPostResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON201 the response for an HTTP 201 `application/json` response
+	JSON201 *NetworkPolicyView
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON201 returns the response for an HTTP 201 `application/json` response
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) GetJSON201() *NetworkPolicyView {
+	return r.JSON201
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CreateNetworkPolicyNetworkPoliciesPostResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *NetworkPolicyView
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *NetworkPolicyNotFoundError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) GetJSON200() *NetworkPolicyView {
+	return r.JSON200
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) GetJSON404() *NetworkPolicyNotFoundError {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *NetworkPolicyView
+	// JSON404 the response for an HTTP 404 `application/json` response
+	JSON404 *NetworkPolicyNotFoundError
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) GetJSON200() *NetworkPolicyView {
+	return r.JSON200
+}
+
+// GetJSON404 returns the response for an HTTP 404 `application/json` response
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) GetJSON404() *NetworkPolicyNotFoundError {
+	return r.JSON404
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type ListProfilesProfilesGetResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -9155,7 +10309,7 @@ type CreateRunRunsPostResponse struct {
 	// JSON402 the response for an HTTP 402 `application/json` response
 	JSON402 *APIKeySpendLimitError
 	// JSON422 the response for an HTTP 422 `application/json` response
-	JSON422 *HTTPValidationError
+	JSON422 *RunCreateValidationError
 }
 
 // GetJSON200 returns the response for an HTTP 200 `application/json` response
@@ -9169,7 +10323,7 @@ func (r CreateRunRunsPostResponse) GetJSON402() *APIKeySpendLimitError {
 }
 
 // GetJSON422 returns the response for an HTTP 422 `application/json` response
-func (r CreateRunRunsPostResponse) GetJSON422() *HTTPValidationError {
+func (r CreateRunRunsPostResponse) GetJSON422() *RunCreateValidationError {
 	return r.JSON422
 }
 
@@ -9627,6 +10781,54 @@ func (r UpdateSessionSessionsSessionIdPatchResponse) ContentType() string {
 	return ""
 }
 
+type CompactSessionSessionsSessionIdCompactPostResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SessionCompactResponse
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r CompactSessionSessionsSessionIdCompactPostResponse) GetJSON200() *SessionCompactResponse {
+	return r.JSON200
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r CompactSessionSessionsSessionIdCompactPostResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r CompactSessionSessionsSessionIdCompactPostResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r CompactSessionSessionsSessionIdCompactPostResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r CompactSessionSessionsSessionIdCompactPostResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r CompactSessionSessionsSessionIdCompactPostResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetSessionCostSessionsSessionIdCostGetResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -9669,6 +10871,54 @@ func (r GetSessionCostSessionsSessionIdCostGetResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r GetSessionCostSessionsSessionIdCostGetResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type GetSessionCostCapSessionsSessionIdCostCapGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *SessionBudgetResponse
+	// JSON422 the response for an HTTP 422 `application/json` response
+	JSON422 *HTTPValidationError
+}
+
+// GetJSON200 returns the response for an HTTP 200 `application/json` response
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) GetJSON200() *SessionBudgetResponse {
+	return r.JSON200
+}
+
+// GetJSON422 returns the response for an HTTP 422 `application/json` response
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) GetJSON422() *HTTPValidationError {
+	return r.JSON422
+}
+
+// GetBody returns the raw response body bytes
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) GetBody() []byte {
+	return r.Body
+}
+
+// Status returns HTTPResponse.Status
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetSessionCostCapSessionsSessionIdCostCapGetResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -10525,26 +11775,6 @@ func (r GetWorkspaceSizeWorkspacesWorkspaceIdSizeGetResponse) ContentType() stri
 	return ""
 }
 
-// ListAgentcardWalletsAgentcardWalletsGetWithResponse List Agentcard Wallets
-//
-// The project's active AgentCard wallets, newest first.
-//
-// Read-only: funding is admin-only during the beta. The UI uses this to offer
-// a wallet on the composer, which is how a run opts into spending — the id
-// then rides RunCreateRequest.agentcard_wallet_id and is validated again there
-// against this same project.
-//
-// Returns a wrapper object for the known response body format(s).
-//
-// Corresponds with GET /agentcard/wallets (the `ListAgentcardWalletsAgentcardWalletsGet` operationId).
-func (c *ClientWithResponses) ListAgentcardWalletsAgentcardWalletsGetWithResponse(ctx context.Context, reqEditors ...RequestEditorFn) (*ListAgentcardWalletsAgentcardWalletsGetResponse, error) {
-	rsp, err := c.ListAgentcardWalletsAgentcardWalletsGet(ctx, reqEditors...)
-	if err != nil {
-		return nil, err
-	}
-	return ParseListAgentcardWalletsAgentcardWalletsGetResponse(rsp)
-}
-
 // ListBrowserSessionsBrowsersGetWithResponse List Browser Sessions
 //
 // Get paginated list of browser sessions with optional status filtering.
@@ -10555,7 +11785,7 @@ func (c *ClientWithResponses) ListAgentcardWalletsAgentcardWalletsGetWithRespons
 // and blocks the event loop. With page_size up to the max this CPU-pegs the
 // worker and starves the DB pool, cascading into pool exhaustion across the
 // fleet. Clients should fetch the recording URL on demand via
-// `GET /api/v2/browsers/{id}`, which signs exactly one URL for a single
+// `GET /browsers/{session_id}`, which signs exactly one URL for a single
 // session. Mirrors the v3 sessions list fix (ENG-4904, PR #4621).
 //
 // Returns a wrapper object for the known response body format(s).
@@ -10879,6 +12109,115 @@ func (c *ClientWithResponses) GetConnectionStatusIntegrationsProviderStatusGetWi
 		return nil, err
 	}
 	return ParseGetConnectionStatusIntegrationsProviderStatusGetResponse(rsp)
+}
+
+// ListNetworkPoliciesNetworkPoliciesGetWithResponse List Network Policies
+//
+// Get a paginated list of the project's network policies, newest first.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /network-policies (the `ListNetworkPoliciesNetworkPoliciesGet` operationId).
+func (c *ClientWithResponses) ListNetworkPoliciesNetworkPoliciesGetWithResponse(ctx context.Context, params *ListNetworkPoliciesNetworkPoliciesGetParams, reqEditors ...RequestEditorFn) (*ListNetworkPoliciesNetworkPoliciesGetResponse, error) {
+	rsp, err := c.ListNetworkPoliciesNetworkPoliciesGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListNetworkPoliciesNetworkPoliciesGetResponse(rsp)
+}
+
+// CreateNetworkPolicyNetworkPoliciesPostWithBodyWithResponse Create Network Policy
+//
+// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+//
+// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+func (c *ClientWithResponses) CreateNetworkPolicyNetworkPoliciesPostWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateNetworkPolicyNetworkPoliciesPostResponse, error) {
+	rsp, err := c.CreateNetworkPolicyNetworkPoliciesPostWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNetworkPolicyNetworkPoliciesPostResponse(rsp)
+}
+
+// CreateNetworkPolicyNetworkPoliciesPostWithResponse Create Network Policy
+//
+// Create a network policy that allows or blocks domains for the browsers that reference it with networkPolicyId.
+//
+// A domain such as `example.com` matches the domain and all of its subdomains, and the most specific entry wins. Domains are trimmed, lower-cased and converted to punycode, a trailing dot and a leading `*.` are removed, and duplicates are dropped. URLs, paths, ports, IP addresses, other wildcards and a domain in both lists are rejected. A policy has at most 10,000 domains, and a project has at most 100 policies.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /network-policies (the `CreateNetworkPolicyNetworkPoliciesPost` operationId).
+func (c *ClientWithResponses) CreateNetworkPolicyNetworkPoliciesPostWithResponse(ctx context.Context, body CreateNetworkPolicyNetworkPoliciesPostJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateNetworkPolicyNetworkPoliciesPostResponse, error) {
+	rsp, err := c.CreateNetworkPolicyNetworkPoliciesPost(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCreateNetworkPolicyNetworkPoliciesPostResponse(rsp)
+}
+
+// DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteWithResponse Delete Network Policy
+//
+// Delete a network policy. Browsers that use it continue without a customer network policy.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with DELETE /network-policies/{policy_id} (the `DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete` operationId).
+func (c *ClientWithResponses) DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteWithResponse(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse, error) {
+	rsp, err := c.DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete(ctx, policyId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse(rsp)
+}
+
+// GetNetworkPolicyNetworkPoliciesPolicyIdGetWithResponse Get Network Policy
+//
+// Get a network policy.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /network-policies/{policy_id} (the `GetNetworkPolicyNetworkPoliciesPolicyIdGet` operationId).
+func (c *ClientWithResponses) GetNetworkPolicyNetworkPoliciesPolicyIdGetWithResponse(ctx context.Context, policyId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse, error) {
+	rsp, err := c.GetNetworkPolicyNetworkPoliciesPolicyIdGet(ctx, policyId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetNetworkPolicyNetworkPoliciesPolicyIdGetResponse(rsp)
+}
+
+// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBodyWithResponse Update Network Policy
+//
+// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+func (c *ClientWithResponses) UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBodyWithResponse(ctx context.Context, policyId openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse, error) {
+	rsp, err := c.UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithBody(ctx, policyId, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse(rsp)
+}
+
+// UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithResponse Update Network Policy
+//
+// Replace each field that the request contains; a domain list replaces the whole list. Each update increases version by 1, and running browsers pick up the change within seconds.
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with PATCH /network-policies/{policy_id} (the `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` operationId).
+func (c *ClientWithResponses) UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithResponse(ctx context.Context, policyId openapi_types.UUID, body UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse, error) {
+	rsp, err := c.UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch(ctx, policyId, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse(rsp)
 }
 
 // ListProfilesProfilesGetWithResponse List Profiles
@@ -11247,6 +12586,21 @@ func (c *ClientWithResponses) UpdateSessionSessionsSessionIdPatchWithResponse(ct
 	return ParseUpdateSessionSessionsSessionIdPatchResponse(rsp)
 }
 
+// CompactSessionSessionsSessionIdCompactPostWithResponse Compact Session Context (beta)
+//
+// Beta. Ask the session's running agent to summarize its context before its next model call. Returns 409 when the session has no running run or that run did not start with modelParams.context.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /sessions/{session_id}/compact (the `CompactSessionSessionsSessionIdCompactPost` operationId).
+func (c *ClientWithResponses) CompactSessionSessionsSessionIdCompactPostWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*CompactSessionSessionsSessionIdCompactPostResponse, error) {
+	rsp, err := c.CompactSessionSessionsSessionIdCompactPost(ctx, sessionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseCompactSessionSessionsSessionIdCompactPostResponse(rsp)
+}
+
 // GetSessionCostSessionsSessionIdCostGetWithResponse Get Session Cost
 //
 // Everything this session has cost so far, split by source.
@@ -11274,9 +12628,24 @@ func (c *ClientWithResponses) GetSessionCostSessionsSessionIdCostGetWithResponse
 	return ParseGetSessionCostSessionsSessionIdCostGetResponse(rsp)
 }
 
+// GetSessionCostCapSessionsSessionIdCostCapGetWithResponse Get Session Cost Cap
+//
+// Read committed budget spending from the primary database.
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /sessions/{session_id}/cost-cap (the `GetSessionCostCapSessionsSessionIdCostCapGet` operationId).
+func (c *ClientWithResponses) GetSessionCostCapSessionsSessionIdCostCapGetWithResponse(ctx context.Context, sessionId openapi_types.UUID, reqEditors ...RequestEditorFn) (*GetSessionCostCapSessionsSessionIdCostCapGetResponse, error) {
+	rsp, err := c.GetSessionCostCapSessionsSessionIdCostCapGet(ctx, sessionId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetSessionCostCapSessionsSessionIdCostCapGetResponse(rsp)
+}
+
 // UpdateSessionCostCapSessionsSessionIdCostCapPatchWithBodyWithResponse Update Session Cost Cap
 //
-// Update the active run cap without starting another run.
+// Replace the session budget without resetting spending or starting a run.
 //
 // Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
 //
@@ -11291,7 +12660,7 @@ func (c *ClientWithResponses) UpdateSessionCostCapSessionsSessionIdCostCapPatchW
 
 // UpdateSessionCostCapSessionsSessionIdCostCapPatchWithResponse Update Session Cost Cap
 //
-// Update the active run cap without starting another run.
+// Replace the session budget without resetting spending or starting a run.
 //
 // Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
 //
@@ -11673,39 +13042,6 @@ func (c *ClientWithResponses) GetWorkspaceSizeWorkspacesWorkspaceIdSizeGetWithRe
 		return nil, err
 	}
 	return ParseGetWorkspaceSizeWorkspacesWorkspaceIdSizeGetResponse(rsp)
-}
-
-// ParseListAgentcardWalletsAgentcardWalletsGetResponse parses an HTTP response from a ListAgentcardWalletsAgentcardWalletsGetWithResponse call
-func ParseListAgentcardWalletsAgentcardWalletsGetResponse(rsp *http.Response) (*ListAgentcardWalletsAgentcardWalletsGetResponse, error) {
-	bodyBytes, err := io.ReadAll(rsp.Body)
-	defer func() { _ = rsp.Body.Close() }()
-	if err != nil {
-		return nil, err
-	}
-
-	response := &ListAgentcardWalletsAgentcardWalletsGetResponse{
-		Body:         bodyBytes,
-		HTTPResponse: rsp,
-	}
-
-	switch {
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest AgentCardWalletListResponse
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON200 = &dest
-
-	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
-		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
-			return nil, err
-		}
-		response.JSON422 = &dest
-
-	}
-
-	return response, nil
 }
 
 // ParseListBrowserSessionsBrowsersGetResponse parses an HTTP response from a ListBrowserSessionsBrowsersGetWithResponse call
@@ -12305,6 +13641,181 @@ func ParseGetConnectionStatusIntegrationsProviderStatusGetResponse(rsp *http.Res
 	return response, nil
 }
 
+// ParseListNetworkPoliciesNetworkPoliciesGetResponse parses an HTTP response from a ListNetworkPoliciesNetworkPoliciesGetWithResponse call
+func ParseListNetworkPoliciesNetworkPoliciesGetResponse(rsp *http.Response) (*ListNetworkPoliciesNetworkPoliciesGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListNetworkPoliciesNetworkPoliciesGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NetworkPolicyListResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseCreateNetworkPolicyNetworkPoliciesPostResponse parses an HTTP response from a CreateNetworkPolicyNetworkPoliciesPostWithResponse call
+func ParseCreateNetworkPolicyNetworkPoliciesPostResponse(rsp *http.Response) (*CreateNetworkPolicyNetworkPoliciesPostResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CreateNetworkPolicyNetworkPoliciesPostResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 201:
+		var dest NetworkPolicyView
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON201 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse parses an HTTP response from a DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteWithResponse call
+func ParseDeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse(rsp *http.Response) (*DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteNetworkPolicyNetworkPoliciesPolicyIdDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case rsp.StatusCode == 204:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetNetworkPolicyNetworkPoliciesPolicyIdGetResponse parses an HTTP response from a GetNetworkPolicyNetworkPoliciesPolicyIdGetWithResponse call
+func ParseGetNetworkPolicyNetworkPoliciesPolicyIdGetResponse(rsp *http.Response) (*GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetNetworkPolicyNetworkPoliciesPolicyIdGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NetworkPolicyView
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NetworkPolicyNotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse parses an HTTP response from a UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchWithResponse call
+func ParseUpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse(rsp *http.Response) (*UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &UpdateNetworkPolicyNetworkPoliciesPolicyIdPatchResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest NetworkPolicyView
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 404:
+		var dest NetworkPolicyNotFoundError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON404 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseListProfilesProfilesGetResponse parses an HTTP response from a ListProfilesProfilesGetWithResponse call
 func ParseListProfilesProfilesGetResponse(rsp *http.Response) (*ListProfilesProfilesGetResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -12567,7 +14078,7 @@ func ParseCreateRunRunsPostResponse(rsp *http.Response) (*CreateRunRunsPostRespo
 		break // No content-type
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
-		var dest HTTPValidationError
+		var dest RunCreateValidationError
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -12940,6 +14451,48 @@ func ParseUpdateSessionSessionsSessionIdPatchResponse(rsp *http.Response) (*Upda
 	return response, nil
 }
 
+// ParseCompactSessionSessionsSessionIdCompactPostResponse parses an HTTP response from a CompactSessionSessionsSessionIdCompactPostWithResponse call
+func ParseCompactSessionSessionsSessionIdCompactPostResponse(rsp *http.Response) (*CompactSessionSessionsSessionIdCompactPostResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &CompactSessionSessionsSessionIdCompactPostResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SessionCompactResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 403:
+		break // No content-type
+
+	case rsp.StatusCode == 404:
+		break // No content-type
+
+	case rsp.StatusCode == 409:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseGetSessionCostSessionsSessionIdCostGetResponse parses an HTTP response from a GetSessionCostSessionsSessionIdCostGetWithResponse call
 func ParseGetSessionCostSessionsSessionIdCostGetResponse(rsp *http.Response) (*GetSessionCostSessionsSessionIdCostGetResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
@@ -12956,6 +14509,45 @@ func ParseGetSessionCostSessionsSessionIdCostGetResponse(rsp *http.Response) (*G
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest SessionCostResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 403:
+		break // No content-type
+
+	case rsp.StatusCode == 404:
+		break // No content-type
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetSessionCostCapSessionsSessionIdCostCapGetResponse parses an HTTP response from a GetSessionCostCapSessionsSessionIdCostCapGetWithResponse call
+func ParseGetSessionCostCapSessionsSessionIdCostCapGetResponse(rsp *http.Response) (*GetSessionCostCapSessionsSessionIdCostCapGetResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetSessionCostCapSessionsSessionIdCostCapGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest SessionBudgetResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

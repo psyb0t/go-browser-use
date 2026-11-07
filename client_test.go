@@ -236,8 +236,11 @@ func TestRunErrors(t *testing.T) {
 
 			if tc.status == http.StatusUnprocessableEntity {
 				require.NotNil(t, res.JSON422)
-				require.NotNil(t, res.JSON422.Detail)
-				assert.Len(t, *res.JSON422.Detail, 1)
+
+				detail, err := res.JSON422.Detail.
+					AsRunCreateValidationErrorDetail1()
+				require.NoError(t, err)
+				assert.Len(t, detail, 1)
 			}
 		})
 	}

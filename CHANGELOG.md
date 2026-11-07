@@ -2,6 +2,18 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.2.0, 2026-11-07
+
+- Breaking: removed the agent card wallet endpoint `ListAgentcardWalletsAgentcardWalletsGet`, its `WithResponse` variant, `NewListAgentcardWalletsAgentcardWalletsGetRequest`, `ParseListAgentcardWalletsAgentcardWalletsGetResponse`, `ListAgentcardWalletsAgentcardWalletsGetResponse` and the types `AgentCardWalletListResponse` and `AgentCardWalletSummary`. The upstream spec no longer has them. Types that implement `ClientInterface` or `ClientWithResponsesInterface` must drop the methods and add the new ones below.
+- Breaking: removed `RunCreateRequest.AgentcardWalletId`, `RunCreateRequest.AgenticAutofillGrantId` and the model constant `RunCreateRequestModelDeepseekV4FlashVision`. Added `RunCreateRequestModelGpt61Terra`.
+- Breaking: `QueueMessageRequest.Text` changed from `string` to `*string`. `QueueMessageRequest` is now a union with `AsQueueMessageRequest0`, `AsQueueMessageRequest1`, `FromQueueMessageRequest0`, `FromQueueMessageRequest1`, `MergeQueueMessageRequest0`, `MergeQueueMessageRequest1`, `MarshalJSON` and `UnmarshalJSON`, and a new `ConfirmInputId` field. The struct is no longer comparable.
+- Breaking: the 422 response of `CreateRunRunsPostResponse` now uses `RunCreateValidationError` instead of `HTTPValidationError` in `JSON422` and `GetJSON422`. Its `Detail` is a union read with `AsRunCreateValidationErrorDetail0` or `AsRunCreateValidationErrorDetail1`.
+- Added network policy endpoints: `ListNetworkPoliciesNetworkPoliciesGet`, `CreateNetworkPolicyNetworkPoliciesPost`, `GetNetworkPolicyNetworkPoliciesPolicyIdGet`, `UpdateNetworkPolicyNetworkPoliciesPolicyIdPatch` and `DeleteNetworkPolicyNetworkPoliciesPolicyIdDelete`, with `WithResponse` variants, request builders and response parsers. Create and update also have `WithBody` variants.
+- Added the network policy types `NetworkPolicyCreateRequest`, `NetworkPolicyUpdateRequest`, `NetworkPolicyView`, `NetworkPolicyListResponse`, `NetworkPolicyDomainList`, `NetworkPolicyNotFoundError` and `ListNetworkPoliciesNetworkPoliciesGetParams`, with `DefaultAction` enums (`allow`, `block`). `CreateBrowserSessionRequest.NetworkPolicyId` and `RunBrowserSettings.NetworkPolicyId` attach a policy.
+- Added session endpoints `CompactSessionSessionsSessionIdCompactPost` (returns `SessionCompactResponse`) and `GetSessionCostCapSessionsSessionIdCostCapGet` (returns `SessionBudgetResponse`), with `WithResponse` variants, request builders and parsers.
+- `QueuedMessage` has new fields `NeedsConfirmation` and `Reason`, and new modes `QueuedMessageModeConfirmed` and `QueuedMessageModeSteer`.
+- The 422 assertion in `client_test.go` now reads `Detail` through `AsRunCreateValidationErrorDetail1`.
+
 ## v0.1.5, 2026-11-01
 
 - Added browser session proxy endpoints: `GetBrowserSessionProxyBrowsersSessionIdProxyGet` reads a session's proxy, and `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatch` changes it. Both have `WithResponse` variants on `ClientWithResponses`, plus `UpdateBrowserSessionProxyBrowsersSessionIdProxyPatchWithBody` for a raw body.
