@@ -1563,7 +1563,7 @@ type CreateBrowserSessionRequest struct {
 	// SolveCaptchas Whether the browser detects and solves CAPTCHAs on its own. Set to false to handle CAPTCHAs yourself. Defaults to true.
 	SolveCaptchas *bool `json:"solveCaptchas,omitempty"`
 
-	// Timeout The timeout for the session in minutes. All users can use up to 240 minutes (4 hours). Browser sessions are charged $0.02/hour.
+	// Timeout The timeout for the session in minutes. All users can use up to 240 minutes (4 hours). Browser sessions are charged per browser-hour at your account rate.
 	Timeout *int `json:"timeout,omitempty"`
 }
 
@@ -3220,7 +3220,7 @@ type ClientInterface interface {
 	//
 	// Create a new browser session.
 	//
-	// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+	// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 	//
 	// The full rate is charged upfront when the session starts.
 	// When you stop the session, any unused time is automatically refunded proportionally.
@@ -3240,7 +3240,7 @@ type ClientInterface interface {
 	//
 	// Create a new browser session.
 	//
-	// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+	// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 	//
 	// The full rate is charged upfront when the session starts.
 	// When you stop the session, any unused time is automatically refunded proportionally.
@@ -3978,7 +3978,7 @@ func (c *Client) ListBrowserSessionsBrowsersGet(ctx context.Context, params *Lis
 //
 // Create a new browser session.
 //
-// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 //
 // The full rate is charged upfront when the session starts.
 // When you stop the session, any unused time is automatically refunded proportionally.
@@ -4008,7 +4008,7 @@ func (c *Client) CreateBrowserSessionBrowsersPostWithBody(ctx context.Context, c
 //
 // Create a new browser session.
 //
-// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 //
 // The full rate is charged upfront when the session starts.
 // When you stop the session, any unused time is automatically refunded proportionally.
@@ -8153,7 +8153,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Create a new browser session.
 	//
-	// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+	// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 	//
 	// The full rate is charged upfront when the session starts.
 	// When you stop the session, any unused time is automatically refunded proportionally.
@@ -8173,7 +8173,7 @@ type ClientWithResponsesInterface interface {
 	//
 	// Create a new browser session.
 	//
-	// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+	// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 	//
 	// The full rate is charged upfront when the session starts.
 	// When you stop the session, any unused time is automatically refunded proportionally.
@@ -11803,7 +11803,7 @@ func (c *ClientWithResponses) ListBrowserSessionsBrowsersGetWithResponse(ctx con
 //
 // Create a new browser session.
 //
-// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 //
 // The full rate is charged upfront when the session starts.
 // When you stop the session, any unused time is automatically refunded proportionally.
@@ -11829,7 +11829,7 @@ func (c *ClientWithResponses) CreateBrowserSessionBrowsersPostWithBodyWithRespon
 //
 // Create a new browser session.
 //
-// **Pricing:** Browser sessions are charged at $0.02/hour for all users.
+// **Pricing:** Browser sessions are charged per browser-hour at your account rate, shown on your billing page.
 //
 // The full rate is charged upfront when the session starts.
 // When you stop the session, any unused time is automatically refunded proportionally.

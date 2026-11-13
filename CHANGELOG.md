@@ -2,6 +2,12 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.2.1, 2026-11-13
+
+- Documentation only for the client. The doc comments for `CreateBrowserSessionRequest.Timeout`, `CreateBrowserSessionBrowsersPost` and `CreateBrowserSessionBrowsersPostWithBody` (on `Client`, `ClientWithResponses` and both interfaces) now say browser sessions are charged per browser-hour at your account rate, instead of a fixed $0.02/hour.
+- Raised the minimum Go version in `go.mod` from 1.26.10 to 1.26.11, which fixes the `net/http` vulnerability GO-2026-6859 found by govulncheck.
+- The development image uses `golang:1.26.11-trixie`, and the setup guide for the agent skill lists Go 1.26.11.
+
 ## v0.2.0, 2026-11-07
 
 - Breaking: removed the agent card wallet endpoint `ListAgentcardWalletsAgentcardWalletsGet`, its `WithResponse` variant, `NewListAgentcardWalletsAgentcardWalletsGetRequest`, `ParseListAgentcardWalletsAgentcardWalletsGetResponse`, `ListAgentcardWalletsAgentcardWalletsGetResponse` and the types `AgentCardWalletListResponse` and `AgentCardWalletSummary`. The upstream spec no longer has them. Types that implement `ClientInterface` or `ClientWithResponsesInterface` must drop the methods and add the new ones below.
