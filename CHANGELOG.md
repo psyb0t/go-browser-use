@@ -2,6 +2,12 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.2.2, 2026-11-15
+
+- Added the optional judge model settings `RunJudgeSettings.Model` (type `RunJudgeSettingsModel`) and `RunJudgeSettings.ModelParams`, a `*map[string]interface{}` of provider request parameters for the judge.
+- Added the `RunJudgeSettingsModel` constants `RunJudgeSettingsModelGemini31Pro`, `RunJudgeSettingsModelGemini35Flash`, `RunJudgeSettingsModelGemini36Flash`, `RunJudgeSettingsModelGemini3Flash`, `RunJudgeSettingsModelGpt55`, `RunJudgeSettingsModelGpt56`, `RunJudgeSettingsModelGpt56Luna`, `RunJudgeSettingsModelGpt56Sol`, `RunJudgeSettingsModelGpt56Terra`, `RunJudgeSettingsModelGpt61Sol`, `RunJudgeSettingsModelGpt61Terra`, `RunJudgeSettingsModelGpt6Astra`, `RunJudgeSettingsModelGpt6Luna` and `RunJudgeSettingsModelGpt6Sol`, and a `Valid` method on the type.
+- Documentation: the comments for `RunCreateRequest.Judge` and `RunJudgeSettings` now say judge model choice is being rolled out, that non-null `model` or `modelParams` return 422 until enabled for a project, and that the judge call is billed at the judge model's token prices.
+
 ## v0.2.1, 2026-11-13
 
 - Documentation only for the client. The doc comments for `CreateBrowserSessionRequest.Timeout`, `CreateBrowserSessionBrowsersPost` and `CreateBrowserSessionBrowsersPostWithBody` (on `Client`, `ClientWithResponses` and both interfaces) now say browser sessions are charged per browser-hour at your account rate, instead of a fixed $0.02/hour.

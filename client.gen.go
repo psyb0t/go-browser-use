@@ -1162,6 +1162,60 @@ func (e RunCreateResponseStatus) Valid() bool {
 	}
 }
 
+// Defines values for RunJudgeSettingsModel.
+const (
+	RunJudgeSettingsModelGemini31Pro   RunJudgeSettingsModel = "gemini-3.1-pro"
+	RunJudgeSettingsModelGemini35Flash RunJudgeSettingsModel = "gemini-3.5-flash"
+	RunJudgeSettingsModelGemini36Flash RunJudgeSettingsModel = "gemini-3.6-flash"
+	RunJudgeSettingsModelGemini3Flash  RunJudgeSettingsModel = "gemini-3-flash"
+	RunJudgeSettingsModelGpt55         RunJudgeSettingsModel = "gpt-5.5"
+	RunJudgeSettingsModelGpt56         RunJudgeSettingsModel = "gpt-5.6"
+	RunJudgeSettingsModelGpt56Luna     RunJudgeSettingsModel = "gpt-5.6-luna"
+	RunJudgeSettingsModelGpt56Sol      RunJudgeSettingsModel = "gpt-5.6-sol"
+	RunJudgeSettingsModelGpt56Terra    RunJudgeSettingsModel = "gpt-5.6-terra"
+	RunJudgeSettingsModelGpt61Sol      RunJudgeSettingsModel = "gpt-6.1-sol"
+	RunJudgeSettingsModelGpt61Terra    RunJudgeSettingsModel = "gpt-6.1-terra"
+	RunJudgeSettingsModelGpt6Astra     RunJudgeSettingsModel = "gpt-6-astra"
+	RunJudgeSettingsModelGpt6Luna      RunJudgeSettingsModel = "gpt-6-luna"
+	RunJudgeSettingsModelGpt6Sol       RunJudgeSettingsModel = "gpt-6-sol"
+)
+
+// Valid indicates whether the value is a known member of the RunJudgeSettingsModel enum.
+func (e RunJudgeSettingsModel) Valid() bool {
+	switch e {
+	case RunJudgeSettingsModelGemini31Pro:
+		return true
+	case RunJudgeSettingsModelGemini35Flash:
+		return true
+	case RunJudgeSettingsModelGemini36Flash:
+		return true
+	case RunJudgeSettingsModelGemini3Flash:
+		return true
+	case RunJudgeSettingsModelGpt55:
+		return true
+	case RunJudgeSettingsModelGpt56:
+		return true
+	case RunJudgeSettingsModelGpt56Luna:
+		return true
+	case RunJudgeSettingsModelGpt56Sol:
+		return true
+	case RunJudgeSettingsModelGpt56Terra:
+		return true
+	case RunJudgeSettingsModelGpt61Sol:
+		return true
+	case RunJudgeSettingsModelGpt61Terra:
+		return true
+	case RunJudgeSettingsModelGpt6Astra:
+		return true
+	case RunJudgeSettingsModelGpt6Luna:
+		return true
+	case RunJudgeSettingsModelGpt6Sol:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for RunStatusResponseStatus.
 const (
 	RunStatusResponseStatusCancelled   RunStatusResponseStatus = "cancelled"
@@ -1968,7 +2022,7 @@ type RunCreateRequest struct {
 	// Judge Opt-in LLM judgement of the finished run. Presence of this object turns
 	// the judge on (send {} for defaults); CP judges the run's trajectory after
 	// it goes terminal and surfaces the verdict as RunSummary.judgement (null
-	// until it lands). The judge's LLM call is billed to the run.
+	// until it lands). Judge model choice is being rolled out. Until it is enabled for a project, judge: {} uses gemini-3-flash and non-null model or modelParams return 422. Once enabled, the default is gpt-6.1-terra with {"reasoning":{"effort":"high"}}. Null means omitted. The judge call is billed to the run at the judge model's token prices.
 	Judge *RunJudgeSettings `json:"judge,omitempty"`
 
 	// KeepAlive Seconds the session's browser stays open after its last run, so a follow-up run reuses the same page, never past the browser's 4 h lifetime. Default 120. Follow-up runs inherit the session's value; send a new value to change it or null to restore the default. Kept time is billed as browser time. Ignored (always 120) for free-tier and Zero Data Retention projects.
@@ -2074,10 +2128,19 @@ type RunEventsResponse struct {
 // RunJudgeSettings Opt-in LLM judgement of the finished run. Presence of this object turns
 // the judge on (send {} for defaults); CP judges the run's trajectory after
 // it goes terminal and surfaces the verdict as RunSummary.judgement (null
-// until it lands). The judge's LLM call is billed to the run.
+// until it lands). Judge model choice is being rolled out. Until it is enabled for a project, judge: {} uses gemini-3-flash and non-null model or modelParams return 422. Once enabled, the default is gpt-6.1-terra with {"reasoning":{"effort":"high"}}. Null means omitted. The judge call is billed to the run at the judge model's token prices.
 type RunJudgeSettings struct {
 	Context *string `json:"context,omitempty"`
+
+	// Model The judge model, an OpenAI or Google model from this list. Model choice is being rolled out: until enabled for a project, non-null model or modelParams return 422 and judge: {} uses gemini-3-flash. Once enabled, the default is gpt-6.1-terra with reasoning effort high. Null means omitted.
+	Model *RunJudgeSettingsModel `json:"model,omitempty"`
+
+	// ModelParams Optional provider-native request parameters for the judge model. Model choice is being rolled out: until enabled for a project, non-null model or modelParams return 422. Once enabled, omitted or null applies reasoning effort high where supported, otherwise the model's default parameters; {} leaves provider defaults in place. Unsupported paths or values are rejected with 422. context and service_tier are not supported.
+	ModelParams *map[string]interface{} `json:"modelParams,omitempty"`
 }
+
+// RunJudgeSettingsModel The judge model, an OpenAI or Google model from this list. Model choice is being rolled out: until enabled for a project, non-null model or modelParams return 422 and judge: {} uses gemini-3-flash. Once enabled, the default is gpt-6.1-terra with reasoning effort high. Null means omitted.
+type RunJudgeSettingsModel string
 
 // RunListResponse defines model for RunListResponse.
 type RunListResponse struct {
