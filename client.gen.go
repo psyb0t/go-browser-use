@@ -1026,6 +1026,9 @@ func (e RunAttachmentStatus) Valid() bool {
 
 // Defines values for RunCreateRequestModel.
 const (
+	RunCreateRequestModelBu40             RunCreateRequestModel = "bu-4.0"
+	RunCreateRequestModelBu40Mini         RunCreateRequestModel = "bu-4.0-mini"
+	RunCreateRequestModelBu40Pro          RunCreateRequestModel = "bu-4.0-pro"
 	RunCreateRequestModelBuFast           RunCreateRequestModel = "bu-fast"
 	RunCreateRequestModelBuUltrafast      RunCreateRequestModel = "bu-ultrafast"
 	RunCreateRequestModelClaudeFable5     RunCreateRequestModel = "claude-fable-5"
@@ -1063,6 +1066,12 @@ const (
 // Valid indicates whether the value is a known member of the RunCreateRequestModel enum.
 func (e RunCreateRequestModel) Valid() bool {
 	switch e {
+	case RunCreateRequestModelBu40:
+		return true
+	case RunCreateRequestModelBu40Mini:
+		return true
+	case RunCreateRequestModelBu40Pro:
+		return true
 	case RunCreateRequestModelBuFast:
 		return true
 	case RunCreateRequestModelBuUltrafast:
@@ -2031,7 +2040,7 @@ type RunCreateRequest struct {
 	// MaxCostUsd This budget limits model and search charges in USD. New API sessions default to $25. Use $25 as a starting budget unless the user specifies another amount. Follow-ups keep the current budget when you omit this field. An explicit value replaces the current budget. Account credits do not lower this budget.
 	MaxCostUsd *RunCreateRequest_MaxCostUsd `json:"maxCostUsd,omitempty"`
 
-	// Model bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
+	// Model When omitted, US projects created on or after 16 November 2026 use BU 4.0 (High reasoning when modelParams is also omitted). Web app users without a saved model choice start on BU 4.0. Older US projects retain their previous default; EU and Bedrock-only defaults are unchanged. See https://docs.browser-use.com/cloud/agent/models for defaults and availability. bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
 	Model *RunCreateRequestModel `json:"model,omitempty"`
 
 	// ModelParams Optional provider-native request parameters for the selected model, written with the provider's own field names and values and forwarded unchanged (e.g. {"reasoning": {"effort": "high"}} for OpenAI, {"thinking": {"type": "adaptive"}} for Anthropic, {"thinkingConfig": {"thinkingLevel": "high"}} for Google). Supported paths and values are per-model; an unsupported path, value, or a model that accepts no parameters at all is rejected with 422. Omitting this field applies the model's default parameters (gpt-6-luna defaults to {"reasoning": {"effort": "high"}}); passing {} opts out of that default and leaves the provider's own defaults in place. On OpenAI models, {"service_tier": "priority"} (alias "fast") requests Fast processing at a higher token price; sent alone it keeps the model's default parameters. Beta: {"context": {"keepScreenshots": "2", "trimAtTokens": "80000", "compactAtTokens": "125000"}} controls what the agent keeps in context for the run: trimAtTokens clears old screenshots and tool output in one batch at that mark (keepScreenshots, which needs it, sets how many recent screenshots stay), and compactAtTokens compacts earlier. Values are strings from short per-model lists; like service_tier it keeps the model's default parameters.
@@ -2073,7 +2082,7 @@ type RunCreateRequest_MaxCostUsd struct {
 	union json.RawMessage
 }
 
-// RunCreateRequestModel bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
+// RunCreateRequestModel When omitted, US projects created on or after 16 November 2026 use BU 4.0 (High reasoning when modelParams is also omitted). Web app users without a saved model choice start on BU 4.0. Older US projects retain their previous default; EU and Bedrock-only defaults are unchanged. See https://docs.browser-use.com/cloud/agent/models for defaults and availability. bu-ultrafast and bu-fast are ultrafast presets; they take no modelParams.
 type RunCreateRequestModel string
 
 // RunCreateResponse defines model for RunCreateResponse.

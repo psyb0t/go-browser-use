@@ -2,6 +2,11 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.2.3, 2026-11-16
+
+- Added the `RunCreateRequestModel` constants `RunCreateRequestModelBu40` (`bu-4.0`), `RunCreateRequestModelBu40Mini` (`bu-4.0-mini`) and `RunCreateRequestModelBu40Pro` (`bu-4.0-pro`). `Valid` accepts them.
+- Documentation: the comments for `RunCreateRequest.Model` and `RunCreateRequestModel` now say that when `model` is omitted, US projects created on or after 16 November 2026 default to BU 4.0, and older US projects keep their previous default.
+
 ## v0.2.2, 2026-11-15
 
 - Added the optional judge model settings `RunJudgeSettings.Model` (type `RunJudgeSettingsModel`) and `RunJudgeSettings.ModelParams`, a `*map[string]interface{}` of provider request parameters for the judge.
