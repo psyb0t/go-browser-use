@@ -1052,6 +1052,8 @@ const (
 	RunCreateRequestModelGpt56Terra       RunCreateRequestModel = "gpt-5.6-terra"
 	RunCreateRequestModelGpt61Sol         RunCreateRequestModel = "gpt-6.1-sol"
 	RunCreateRequestModelGpt61Terra       RunCreateRequestModel = "gpt-6.1-terra"
+	RunCreateRequestModelGpt62Astra       RunCreateRequestModel = "gpt-6.2-astra"
+	RunCreateRequestModelGpt62Sol         RunCreateRequestModel = "gpt-6.2-sol"
 	RunCreateRequestModelGpt6Astra        RunCreateRequestModel = "gpt-6-astra"
 	RunCreateRequestModelGpt6Luna         RunCreateRequestModel = "gpt-6-luna"
 	RunCreateRequestModelGpt6Sol          RunCreateRequestModel = "gpt-6-sol"
@@ -1117,6 +1119,10 @@ func (e RunCreateRequestModel) Valid() bool {
 	case RunCreateRequestModelGpt61Sol:
 		return true
 	case RunCreateRequestModelGpt61Terra:
+		return true
+	case RunCreateRequestModelGpt62Astra:
+		return true
+	case RunCreateRequestModelGpt62Sol:
 		return true
 	case RunCreateRequestModelGpt6Astra:
 		return true
@@ -1184,6 +1190,8 @@ const (
 	RunJudgeSettingsModelGpt56Terra    RunJudgeSettingsModel = "gpt-5.6-terra"
 	RunJudgeSettingsModelGpt61Sol      RunJudgeSettingsModel = "gpt-6.1-sol"
 	RunJudgeSettingsModelGpt61Terra    RunJudgeSettingsModel = "gpt-6.1-terra"
+	RunJudgeSettingsModelGpt62Astra    RunJudgeSettingsModel = "gpt-6.2-astra"
+	RunJudgeSettingsModelGpt62Sol      RunJudgeSettingsModel = "gpt-6.2-sol"
 	RunJudgeSettingsModelGpt6Astra     RunJudgeSettingsModel = "gpt-6-astra"
 	RunJudgeSettingsModelGpt6Luna      RunJudgeSettingsModel = "gpt-6-luna"
 	RunJudgeSettingsModelGpt6Sol       RunJudgeSettingsModel = "gpt-6-sol"
@@ -1213,6 +1221,10 @@ func (e RunJudgeSettingsModel) Valid() bool {
 	case RunJudgeSettingsModelGpt61Sol:
 		return true
 	case RunJudgeSettingsModelGpt61Terra:
+		return true
+	case RunJudgeSettingsModelGpt62Astra:
+		return true
+	case RunJudgeSettingsModelGpt62Sol:
 		return true
 	case RunJudgeSettingsModelGpt6Astra:
 		return true
@@ -1819,8 +1831,8 @@ type OnePasswordSecretSource struct {
 	// FieldId Field id from the item-fields endpoint, e.g. "password".
 	FieldId string `json:"fieldId"`
 
-	// IntegrationId 1Password integration to resolve through. Must belong to this project.
-	IntegrationId openapi_types.UUID          `json:"integrationId"`
+	// IntegrationId 1Password integration to resolve through. Must belong to this project. Optional when the project has exactly one active 1Password integration.
+	IntegrationId *openapi_types.UUID         `json:"integrationId,omitempty"`
 	ItemId        string                      `json:"itemId"`
 	Type          OnePasswordSecretSourceType `json:"type"`
 	VaultId       string                      `json:"vaultId"`

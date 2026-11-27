@@ -2,6 +2,12 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.3.0, 2026-11-27
+
+- Breaking: `OnePasswordSecretSource.IntegrationId` changed from `openapi_types.UUID` to `*openapi_types.UUID` and is now optional (`json:"integrationId,omitempty"`). The API accepts a missing value when the project has exactly one active 1Password integration. Callers that assign or read the field must use a pointer.
+- Added the `RunCreateRequestModel` constants `RunCreateRequestModelGpt62Astra` (`gpt-6.2-astra`) and `RunCreateRequestModelGpt62Sol` (`gpt-6.2-sol`). `Valid` accepts them.
+- Added the `RunJudgeSettingsModel` constants `RunJudgeSettingsModelGpt62Astra` (`gpt-6.2-astra`) and `RunJudgeSettingsModelGpt62Sol` (`gpt-6.2-sol`). `Valid` accepts them.
+
 ## v0.2.3, 2026-11-16
 
 - Added the `RunCreateRequestModel` constants `RunCreateRequestModelBu40` (`bu-4.0`), `RunCreateRequestModelBu40Mini` (`bu-4.0-mini`) and `RunCreateRequestModelBu40Pro` (`bu-4.0-pro`). `Valid` accepts them.
