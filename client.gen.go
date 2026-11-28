@@ -196,6 +196,36 @@ func (e OnePasswordSecretSourceType) Valid() bool {
 	}
 }
 
+// Defines values for PaymentRequiredReason.
+const (
+	PaymentRequiredReasonApiKeyMonthlySpendLimitReached PaymentRequiredReason = "api_key_monthly_spend_limit_reached"
+	PaymentRequiredReasonCostLimitReached               PaymentRequiredReason = "cost_limit_reached"
+	PaymentRequiredReasonInsufficientCredits            PaymentRequiredReason = "insufficient_credits"
+	PaymentRequiredReasonPaymentFailed                  PaymentRequiredReason = "payment_failed"
+	PaymentRequiredReasonProfileLimitReached            PaymentRequiredReason = "profile_limit_reached"
+	PaymentRequiredReasonWalletInsufficientBalance      PaymentRequiredReason = "wallet_insufficient_balance"
+)
+
+// Valid indicates whether the value is a known member of the PaymentRequiredReason enum.
+func (e PaymentRequiredReason) Valid() bool {
+	switch e {
+	case PaymentRequiredReasonApiKeyMonthlySpendLimitReached:
+		return true
+	case PaymentRequiredReasonCostLimitReached:
+		return true
+	case PaymentRequiredReasonInsufficientCredits:
+		return true
+	case PaymentRequiredReasonPaymentFailed:
+		return true
+	case PaymentRequiredReasonProfileLimitReached:
+		return true
+	case PaymentRequiredReasonWalletInsufficientBalance:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for ProxyCountryCode.
 const (
 	ProxyCountryCodeAd ProxyCountryCode = "ad"
@@ -1386,6 +1416,14 @@ type APIKeySpendLimitDetail struct {
 // APIKeySpendLimitError FastAPI wraps endpoint errors in a top-level “detail“ field.
 type APIKeySpendLimitError struct {
 	Detail APIKeySpendLimitError_Detail `json:"detail"`
+
+	// Reason insufficient_credits: The project has insufficient credits.
+	// profile_limit_reached: The project reached its profile limit.
+	// api_key_monthly_spend_limit_reached: The API key reached its monthly spend limit.
+	// payment_failed: The payment provider did not complete the request.
+	// cost_limit_reached: The run reached its cost limit.
+	// wallet_insufficient_balance: The AgentCard wallet has insufficient available balance.
+	Reason PaymentRequiredReason `json:"reason"`
 }
 
 // APIKeySpendLimitErrorDetail0 defines model for APIKeySpendLimitError.Detail.0.
@@ -1716,9 +1754,17 @@ type InlineSecretSource struct {
 // InlineSecretSourceType defines model for InlineSecretSource.Type.
 type InlineSecretSourceType string
 
-// InsufficientCreditsError Error response when there are insufficient credits
+// InsufficientCreditsError Profile limit error: reason is profile_limit_reached.
 type InsufficientCreditsError struct {
 	Detail *string `json:"detail,omitempty"`
+
+	// Reason insufficient_credits: The project has insufficient credits.
+	// profile_limit_reached: The project reached its profile limit.
+	// api_key_monthly_spend_limit_reached: The API key reached its monthly spend limit.
+	// payment_failed: The payment provider did not complete the request.
+	// cost_limit_reached: The run reached its cost limit.
+	// wallet_insufficient_balance: The AgentCard wallet has insufficient available balance.
+	Reason PaymentRequiredReason `json:"reason"`
 }
 
 // IntegrationCategoryResponse Response for integration categories.
@@ -1840,6 +1886,14 @@ type OnePasswordSecretSource struct {
 
 // OnePasswordSecretSourceType defines model for OnePasswordSecretSource.Type.
 type OnePasswordSecretSourceType string
+
+// PaymentRequiredReason insufficient_credits: The project has insufficient credits.
+// profile_limit_reached: The project reached its profile limit.
+// api_key_monthly_spend_limit_reached: The API key reached its monthly spend limit.
+// payment_failed: The payment provider did not complete the request.
+// cost_limit_reached: The run reached its cost limit.
+// wallet_insufficient_balance: The AgentCard wallet has insufficient available balance.
+type PaymentRequiredReason string
 
 // ProfileCreateRequest Request model for creating a new profile.
 type ProfileCreateRequest struct {

@@ -2,6 +2,12 @@
 
 Changes are listed per release. Versions follow [semver](https://semver.org).
 
+## v0.3.1, 2026-11-28
+
+- Added the `PaymentRequiredReason` type with the constants `PaymentRequiredReasonApiKeyMonthlySpendLimitReached`, `PaymentRequiredReasonCostLimitReached`, `PaymentRequiredReasonInsufficientCredits`, `PaymentRequiredReasonPaymentFailed`, `PaymentRequiredReasonProfileLimitReached` and `PaymentRequiredReasonWalletInsufficientBalance`. `Valid` accepts them.
+- Added the `Reason` field (type `PaymentRequiredReason`) to `APIKeySpendLimitError` and `InsufficientCreditsError`, so callers can tell why a 402 response was returned.
+- Documentation: the comment for `InsufficientCreditsError` now describes the profile limit error.
+
 ## v0.3.0, 2026-11-27
 
 - Breaking: `OnePasswordSecretSource.IntegrationId` changed from `openapi_types.UUID` to `*openapi_types.UUID` and is now optional (`json:"integrationId,omitempty"`). The API accepts a missing value when the project has exactly one active 1Password integration. Callers that assign or read the field must use a pointer.
